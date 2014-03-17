@@ -24,20 +24,20 @@ public class Main extends Application {
   private final double MINIMUM_WINDOW_HEIGHT = 500.0;
 
   private final FileChooser fileChooser = new FileChooser();
-  
+
   private final MidiPlayer midiPlayer = new MidiPlayer();
 
   @Override
   public void start(Stage primaryStage) {
     try {
-      
+
       stage = primaryStage;
       stage.setTitle("FXML Login Sample");
       stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
       stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
-      
+
       gotoLoad();
-      
+
       primaryStage.show();
     } catch (Exception e) {
       e.printStackTrace();
@@ -47,16 +47,14 @@ public class Main extends Application {
   public static void main(String[] args) {
     launch(args);
   }
-  
+
   public File requestMidiFile() {
-    fileChooser.getExtensionFilters().addAll(
-        new FileChooser.ExtensionFilter("All Images", "*.*"),
-        new FileChooser.ExtensionFilter("MIDI", "*.mid")
-    );
-    
+    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.*"),
+        new FileChooser.ExtensionFilter("MIDI", "*.mid"));
+
     return fileChooser.showOpenDialog(stage);
   }
-  
+
   private void gotoLoad() {
     try {
       LoadController load = (LoadController) replaceSceneContent("ui/fxml/Load.fxml");
@@ -66,7 +64,7 @@ public class Main extends Application {
       e.printStackTrace();
     }
   }
-  
+
   private Initializable replaceSceneContent(String fxml) throws Exception {
     FXMLLoader loader = new FXMLLoader();
     InputStream in = Main.class.getResourceAsStream(fxml);
@@ -74,13 +72,13 @@ public class Main extends Application {
     loader.setLocation(Main.class.getResource(fxml));
     AnchorPane page;
     try {
-        page = (AnchorPane) loader.load(in);
+      page = (AnchorPane) loader.load(in);
     } finally {
-        in.close();
-    } 
+      in.close();
+    }
     Scene scene = new Scene(page, 800, 600);
     stage.setScene(scene);
     stage.sizeToScene();
     return (Initializable) loader.getController();
-}
+  }
 }

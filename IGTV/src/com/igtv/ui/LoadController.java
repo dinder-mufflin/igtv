@@ -36,7 +36,7 @@ public class LoadController extends AnchorPane implements Initializable {
     path.setPromptText("demo");
 
   }
-  
+
   public void processLoad(ActionEvent event) {
     if (application == null) {
       errorMessage.setText("Something went horribly wrong!");
@@ -46,12 +46,12 @@ public class LoadController extends AnchorPane implements Initializable {
         errorMessage.setText("Didn't work!");
       } else {
         MidiPlayer player = new MidiPlayer();
-        
+
         player.load(file);
-        player.play(0);
-        
-        
-        //errorMessage.setText("Success!");
+        player.play();
+
+
+        // errorMessage.setText("Success!");
       }
     }
   }
