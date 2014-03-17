@@ -1,5 +1,9 @@
 package com.igtv.ui;
 
+import java.util.Hashtable;
+
+import com.igtv.dto.Frame;
+
 /**
  * This class manages the GUI elements related to the displayed guitar Tablature
  * representation of a score.
@@ -19,7 +23,9 @@ public class Tablature {
    * @post isRendered()
    * @param tab UIElement corresponding to the tablature box
    */
-  private void render(UIElement tab) { ... }
+  //private void render(UIElement tab) { 
+  //TODO: Fill this method in
+  //}
   
   /* Constructor and other methods have been omitted */
 }

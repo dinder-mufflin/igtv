@@ -25,7 +25,9 @@ public class Score {
    * @param notes An 8xN double array representing note tuples.
    * @param ticksPerQuarterNotes Number of ticks per one quarter note.
    */
-  public Score(double[][] notes, double ticksPerQuarterNotes) { ... }
+  public Score(double[][] notes, double ticksPerQuarterNotes) { 
+  //TODO: Fill this method in
+  }
   
   /* Getters and setters have been omitted. */
 
