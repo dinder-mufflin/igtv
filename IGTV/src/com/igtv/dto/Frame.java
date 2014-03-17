@@ -1,5 +1,7 @@
 package com.igtv.dto;
 
+import com.igtv.dto.Note;
+
 /**
  * Representation as a frame (as outlined in the dictionary of terms)
  * Contains a listing of all notes that occur at a particular onset.
