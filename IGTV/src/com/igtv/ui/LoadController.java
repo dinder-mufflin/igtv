@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.igtv.Main;
+import com.igtv.audio.MidiPlayer;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -44,7 +45,13 @@ public class LoadController extends AnchorPane implements Initializable {
       if (file == null) {
         errorMessage.setText("Didn't work!");
       } else {
-        errorMessage.setText("Success!");
+        MidiPlayer player = new MidiPlayer();
+        
+        player.load(file);
+        player.play(0);
+        
+        
+        //errorMessage.setText("Success!");
       }
     }
   }

@@ -3,6 +3,7 @@ package com.igtv;
 import java.io.File;
 import java.io.InputStream;
 
+import com.igtv.audio.MidiPlayer;
 import com.igtv.ui.LoadController;
 
 import javafx.application.Application;
@@ -23,6 +24,8 @@ public class Main extends Application {
   private final double MINIMUM_WINDOW_HEIGHT = 500.0;
 
   private final FileChooser fileChooser = new FileChooser();
+  
+  private final MidiPlayer midiPlayer = new MidiPlayer();
 
   @Override
   public void start(Stage primaryStage) {
