@@ -2,8 +2,6 @@ package com.igtv.ui;
 
 import java.util.Hashtable;
 
-import com.igtv.dto.Frame;
-
 /**
  * This class manages the GUI elements related to the displayed guitar Tablature representation of a
  * score.

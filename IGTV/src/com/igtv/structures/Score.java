@@ -1,4 +1,4 @@
-package com.igtv.dto;
+package com.igtv.structures;
 
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.Sequence;

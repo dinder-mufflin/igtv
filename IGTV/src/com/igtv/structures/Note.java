@@ -1,4 +1,4 @@
-package com.igtv.dto;
+package com.igtv.structures;
 
 /**
  * DTO representation of a note. Performs no logic apart from its construction

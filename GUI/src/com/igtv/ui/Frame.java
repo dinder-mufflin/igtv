@@ -1,8 +1,8 @@
-package com.igtv.dto;
+package com.igtv.ui;
 
 import java.util.List;
 
-import com.igtv.dto.Note;
+import com.igtv.structures.Note;
 
 /**
  * Representation as a frame (as outlined in the dictionary of terms) Contains a listing of all
