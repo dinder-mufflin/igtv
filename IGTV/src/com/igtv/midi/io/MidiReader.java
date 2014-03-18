@@ -3,7 +3,7 @@ package com.igtv.midi.io;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.Sequence;
 
-import com.igtv.dto.Score;
+import com.igtv.structures.Score;
 
 import java.io.File;
 

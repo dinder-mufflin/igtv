@@ -5,7 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.igtv.Main;
-import com.igtv.dto.Score;
+import com.igtv.structures.Score;
 import com.igtv.midi.io.MidiReader;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
