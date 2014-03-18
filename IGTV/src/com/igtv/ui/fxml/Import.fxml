@@ -15,7 +15,7 @@
 <children>
 		<Label alignment="CENTER" layoutX="218.0" layoutY="57.0" text="Welcome Message!" /><HBox prefHeight="68.0" prefWidth="260.0" spacing="10.0" style="-fx-alignment: center;">
 <children>
-		<Button fx:id="btnImport" defaultButton="true" layoutX="271.33837890625" layoutY="166.0" mnemonicParsing="false" onAction="#processImport" text="Import" /><TextField fx:id="txtImport" disable="true" />
+		<Button fx:id="btnImport" defaultButton="true" layoutX="271.33837890625" layoutY="166.0" mnemonicParsing="false" onAction="#onImportClicked" text="Import" /><TextField fx:id="txtImport" disable="true" />
 </children></HBox>
 </children>
 <padding>
@@ -26,7 +26,18 @@
     </Tab>
     <Tab fx:id="tabTrack" closable="false" disable="true" text="choose a track">
       <content>
-        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+<children><HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+<children><TableView fx:id="tblTracks" onMouseClicked="#onTrackSelected" prefHeight="189.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+  <columns>
+    <TableColumn fx:id="colNumber" editable="false" prefWidth="75.0" sortable="false" text="Number" />
+    <TableColumn fx:id="colInstrument" editable="false" prefWidth="95.0" sortable="false" text="Instrument" />
+  </columns>
+</TableView><VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-alignment: center;">
+<children><Button fx:id="btnPreview" mnemonicParsing="false" onAction="#onPreviewRequested" text="Preview" /><Button fx:id="btnTrackSubmit" mnemonicParsing="false" onAction="#onTrackSubmit" text="Continue" />
+</children></VBox>
+</children></HBox>
+</children></AnchorPane>
       </content>
     </Tab>
   </tabs>

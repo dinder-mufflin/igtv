@@ -8,6 +8,7 @@ import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
+import javax.sound.midi.Track;
 
 /**
  * Plays and stops any
@@ -15,22 +16,25 @@ import javax.sound.midi.Sequencer;
 public class MidiPlayer {
 
   private Sequencer sequencer;
+  private boolean isPlaying = false;
 
-  public boolean load(File file) {
+  public boolean load(Sequence seq) {
+    
+    if(isPlaying) {
+      stop();
+    }
 
     try {
-      Sequence sequence = MidiSystem.getSequence(file);
+      //Sequence sequence = MidiSystem.getSequence(file);
 
       // Create a sequencer for the sequence
       sequencer = MidiSystem.getSequencer();
       sequencer.open();
-      sequencer.setSequence(sequence);
-
+      sequencer.setSequence(seq);
+      
       return true;
 
     } catch (InvalidMidiDataException e) {
-      e.printStackTrace();
-    } catch (IOException e) {
       e.printStackTrace();
     } catch (MidiUnavailableException e) {
       e.printStackTrace();
@@ -57,6 +61,7 @@ public class MidiPlayer {
 
       // Start playing
       sequencer.start();
+      isPlaying = true;
       return true;
     }
   }
@@ -71,6 +76,11 @@ public class MidiPlayer {
    */
   public void stop() {
     sequencer.stop();
+    isPlaying = false;
+  }
+  
+  public boolean isPlaying() {
+    return isPlaying;
   }
 
 }

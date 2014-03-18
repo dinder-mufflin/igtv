@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import com.igtv.audio.MidiPlayer;
-import com.igtv.ui.LoadController;
+import com.igtv.ui.ImportController;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +25,7 @@ public class Main extends Application {
 
   private final FileChooser fileChooser = new FileChooser();
 
-  private final MidiPlayer midiPlayer = new MidiPlayer();
+  public final MidiPlayer player = new MidiPlayer();
 
   @Override
   public void start(Stage primaryStage) {
@@ -36,7 +36,7 @@ public class Main extends Application {
       stage.setMinWidth(MINIMUM_WINDOW_WIDTH);
       stage.setMinHeight(MINIMUM_WINDOW_HEIGHT);
 
-      gotoLoad();
+      gotoImport();
 
       primaryStage.show();
     } catch (Exception e) {
@@ -49,16 +49,17 @@ public class Main extends Application {
   }
 
   public File requestMidiFile() {
-    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Images", "*.*"),
+    fileChooser.getExtensionFilters().addAll(
+        new FileChooser.ExtensionFilter("All Files", "*.*"),
         new FileChooser.ExtensionFilter("MIDI", "*.mid"));
 
     return fileChooser.showOpenDialog(stage);
   }
 
-  private void gotoLoad() {
+  private void gotoImport() {
     try {
-      LoadController load = (LoadController) replaceSceneContent("ui/fxml/Load.fxml");
-      load.setApp(this);
+      ImportController importer = (ImportController) replaceSceneContent("ui/fxml/Import.fxml");
+      importer.setApp(this);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
