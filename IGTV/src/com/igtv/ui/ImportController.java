@@ -78,13 +78,13 @@ public class ImportController extends AnchorPane implements Initializable {
       colInstrument.setCellValueFactory(new PropertyValueFactory<TrackTableItem, String>("instrument"));
       colNumber.setCellValueFactory(new PropertyValueFactory<TrackTableItem, Integer>("number"));
 
-      Score s = MidiReader.readScore(file.getPath());
+      Score importedScore = MidiReader.readScore(file.getPath());
 
       ObservableList<TrackTableItem> tracks = FXCollections.observableArrayList();
 
-      for (int i = 0; i < s.numberOfTracks(); i++) {
+      for (int i = 0; i < importedScore.numberOfTracks(); i++) {
         
-        Score currentTrack = s.getTrack(i);
+        Score currentTrack = importedScore.getTrack(i);
         
         tracks.add(new TrackTableItem(i, "empty", currentTrack));
         
