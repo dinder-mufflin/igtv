@@ -133,6 +133,6 @@ public class ImportController extends AnchorPane implements Initializable {
   }
   
   public void onTrackSubmit(ActionEvent e) {
-    
+    application.gotoTabViewer();
   }
 }

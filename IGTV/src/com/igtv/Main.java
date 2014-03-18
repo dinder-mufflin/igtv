@@ -5,6 +5,7 @@ import java.io.InputStream;
 
 import com.igtv.audio.MidiPlayer;
 import com.igtv.ui.ImportController;
+import com.igtv.ui.TabViewer;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -60,6 +61,16 @@ public class Main extends Application {
     try {
       ImportController importer = (ImportController) replaceSceneContent("ui/fxml/Import.fxml");
       importer.setApp(this);
+    } catch (Exception e) {
+      // TODO Auto-generated catch block
+      e.printStackTrace();
+    }
+  }
+  
+  public void gotoTabViewer() {
+    try {
+      TabViewer viewer = (TabViewer) replaceSceneContent("ui/fxml/TabViewer.fxml");
+      viewer.setApp(this);
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();
