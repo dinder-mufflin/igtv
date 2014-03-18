@@ -24,7 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 
-public class TabViewer extends AnchorPane implements Initializable {
+public class TabViewerController extends AnchorPane implements Initializable {
 
   private Main application;
 
