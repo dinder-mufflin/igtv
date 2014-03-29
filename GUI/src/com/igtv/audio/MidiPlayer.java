@@ -14,7 +14,7 @@ import javax.sound.midi.Track;
  * Plays and stops any
  */
 public class MidiPlayer {
-
+  
   private Sequencer sequencer;
   private boolean isPlaying = false;
 
