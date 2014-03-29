@@ -30,6 +30,8 @@ public class Note {
    */
   private int track;
 
+  // ---- Getters and setters ---- //
+
   public int getOnsetInTicks() {
     return onsetInTicks;
   }
