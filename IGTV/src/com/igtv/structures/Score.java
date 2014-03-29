@@ -1,5 +1,7 @@
 package com.igtv.structures;
 
+import java.util.ArrayList;
+
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
@@ -53,6 +55,11 @@ public class Score {
   
   public Sequence getSequence() {
     return seq;
+  }
+  
+  public ArrayList<Note> getNotes() {
+    // TODO Auto-generated method stub
+    return null;
   }
 
 }
