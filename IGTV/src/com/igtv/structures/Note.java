@@ -30,6 +30,44 @@ public class Note {
    */
   private int track;
 
-  /* Getters, Setters, and Contructor have been omitted */
+  public int getOnsetInTicks() {
+    return onsetInTicks;
+  }
+
+  public void setOnsetInTicks(int onsetInTicks) {
+    this.onsetInTicks = onsetInTicks;
+  }
+
+  public int getDurationInTicks() {
+    return durationInTicks;
+  }
+
+  public void setDurationInTicks(int durationInTicks) {
+    this.durationInTicks = durationInTicks;
+  }
+
+  public int getPitch() {
+    return pitch;
+  }
+
+  public void setPitch(int pitch) {
+    this.pitch = pitch;
+  }
+
+  public int getChannel() {
+    return channel;
+  }
+
+  public void setChannel(int channel) {
+    this.channel = channel;
+  }
+
+  public int getTrack() {
+    return track;
+  }
+
+  public void setTrack(int track) {
+    this.track = track;
+  }
 
 }
