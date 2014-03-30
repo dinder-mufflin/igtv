@@ -74,8 +74,9 @@ public class ImportController extends AnchorPane implements Initializable {
       btnImport.setDisable(true);
 
       tabTrack.setDisable(false);
-      
-      colInstrument.setCellValueFactory(new PropertyValueFactory<TrackTableItem, String>("instrument"));
+
+      colInstrument.setCellValueFactory(new PropertyValueFactory<TrackTableItem, String>(
+          "instrument"));
       colNumber.setCellValueFactory(new PropertyValueFactory<TrackTableItem, Integer>("number"));
 
       Score importedScore = MidiReader.readScore(file.getPath());
@@ -83,11 +84,11 @@ public class ImportController extends AnchorPane implements Initializable {
       ObservableList<TrackTableItem> tracks = FXCollections.observableArrayList();
 
       for (int i = 0; i < importedScore.numberOfTracks(); i++) {
-        
+
         Score currentTrack = importedScore.getTrack(i);
-        
+
         tracks.add(new TrackTableItem(i, "empty", currentTrack));
-        
+
       }
 
       tblTracks.setItems(tracks);
@@ -122,16 +123,16 @@ public class ImportController extends AnchorPane implements Initializable {
     btnPreview.setDisable(false);
     btnTrackSubmit.setDisable(false);
   }
-  
+
   public void onPreviewRequested(ActionEvent e) {
     TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
-    
+
     Score score = item.getScore();
-    
+
     application.player.load(score.getSequence());
     application.player.play();
   }
-  
+
   public void onTrackSubmit(ActionEvent e) {
     application.gotoTabViewer();
   }

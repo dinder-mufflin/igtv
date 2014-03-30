@@ -14,24 +14,24 @@ import javax.sound.midi.Track;
  * Plays and stops any
  */
 public class MidiPlayer {
-  
+
   private Sequencer sequencer;
   private boolean isPlaying = false;
 
   public boolean load(Sequence seq) {
-    
-    if(isPlaying) {
+
+    if (isPlaying) {
       stop();
     }
 
     try {
-      //Sequence sequence = MidiSystem.getSequence(file);
+      // Sequence sequence = MidiSystem.getSequence(file);
 
       // Create a sequencer for the sequence
       sequencer = MidiSystem.getSequencer();
       sequencer.open();
       sequencer.setSequence(seq);
-      
+
       return true;
 
     } catch (InvalidMidiDataException e) {
@@ -78,7 +78,7 @@ public class MidiPlayer {
     sequencer.stop();
     isPlaying = false;
   }
-  
+
   public boolean isPlaying() {
     return isPlaying;
   }

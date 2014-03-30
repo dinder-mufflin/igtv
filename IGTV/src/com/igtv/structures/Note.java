@@ -5,15 +5,23 @@ package com.igtv.structures;
  */
 public class Note {
 
+  Note(long onsetInTicks, long durationInTicks, int pitch, int channel, int track) {
+    this.onsetInTicks = onsetInTicks;
+    this.durationInTicks = durationInTicks;
+    this.pitch = pitch;
+    this.channel = channel;
+    this.track = track;
+  }
+
   /**
    * Onset of the note (in ticks)
    */
-  private int onsetInTicks;
+  private long onsetInTicks;
 
   /**
    * Duration of the note (in ticks)
    */
-  private int durationInTicks;
+  private long durationInTicks;
 
   /**
    * MIDI pitch (60 is Middle C, 61 is C#, etc.)
@@ -30,9 +38,7 @@ public class Note {
    */
   private int track;
 
-  // ---- Getters and setters ---- //
-
-  public int getOnsetInTicks() {
+  public long getOnsetInTicks() {
     return onsetInTicks;
   }
 
@@ -40,7 +46,7 @@ public class Note {
     this.onsetInTicks = onsetInTicks;
   }
 
-  public int getDurationInTicks() {
+  public long getDurationInTicks() {
     return durationInTicks;
   }
 

@@ -50,8 +50,7 @@ public class Main extends Application {
   }
 
   public File requestMidiFile() {
-    fileChooser.getExtensionFilters().addAll(
-        new FileChooser.ExtensionFilter("All Files", "*.*"),
+    fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("All Files", "*.*"),
         new FileChooser.ExtensionFilter("MIDI", "*.mid"));
 
     return fileChooser.showOpenDialog(stage);
@@ -66,10 +65,11 @@ public class Main extends Application {
       e.printStackTrace();
     }
   }
-  
+
   public void gotoTabViewer() {
     try {
-      TabViewerController viewer = (TabViewerController) replaceSceneContent("ui/fxml/TabViewer.fxml");
+      TabViewerController viewer =
+          (TabViewerController) replaceSceneContent("ui/fxml/TabViewer.fxml");
       viewer.setApp(this);
     } catch (Exception e) {
       // TODO Auto-generated catch block
