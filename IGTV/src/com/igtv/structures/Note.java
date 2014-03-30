@@ -2,7 +2,7 @@ package com.igtv.structures;
 
 /**
  * DTO representation of a note. Performs no logic apart from its construction
- * ~Small random change - Josh~
+ * 
  */
 public class Note {
   
