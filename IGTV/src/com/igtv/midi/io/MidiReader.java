@@ -8,7 +8,7 @@ import com.igtv.structures.Score;
 import java.io.File;
 
 public class MidiReader {
-  
+
   /**
    * Returns the notes from a MIDI file as a two-dimensional double array. Columns are pitch,
    * velocity, channel, start (ticks), duration (ticks), start (seconds), duration (seconds), and

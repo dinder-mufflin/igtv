@@ -1,20 +1,50 @@
 package com.igtv.structures;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.LinkedList;
 
+/**
+ * 
+ *
+ */
 public class Tablature {
   
-  public Tablature() {
-    
-  }
-  
+  private LinkedList<Frame> frames;
+
   /**
-   * Parses a {@Score}
+   * 
    * @param score
    */
-  public void parse(Score score) {
-    ArrayList<Note> notes = score.getNotes();
-    //TODO: Parse notes
+  public Tablature(Score score) {
+    parse(score);
   }
-  
+
+  /**
+   * Parses a {@Score}
+   * 
+   * @param score
+   */
+  private void parse(Score score) {
+    // Notes for parsing
+    ArrayList<Note> notes = score.getNotes();
+
+    // Frames for saving into
+    LinkedList<Frame> frames = new LinkedList<Frame>();
+
+    Iterator<Note> i = notes.iterator();
+    while (i.hasNext()) {
+      // Get the current note
+      Note curr = i.next();
+
+      if (frames.isEmpty() || frames.getLast().getOnsetInTicks() != curr.getOnsetInTicks()) {
+        frames.add(new Frame(curr.getOnsetInTicks()));
+      }
+
+      frames.getLast().addNote(curr);
+    }
+    
+    this.frames = frames;
+  }
+
 }
