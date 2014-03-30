@@ -6,11 +6,13 @@ import java.util.HashSet;
  * Represents all notes beginning at one point in time.
  */
 public class Frame {
+  
+  private double onsetInTicks;
 
   HashSet<Note> notes = new HashSet<Note>();
 
-  public Frame() {
-
+  public Frame(double currentOnset) {
+    this.onsetInTicks = currentOnset;
   }
 
   /**
@@ -29,5 +31,9 @@ public class Frame {
    */
   public HashSet<Note> getNotes() {
     return notes;
+  }
+  
+  public double getOnsetInTicks() {
+    return onsetInTicks;
   }
 }

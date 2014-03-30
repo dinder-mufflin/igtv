@@ -4,7 +4,15 @@ package com.igtv.structures;
  * DTO representation of a note. Performs no logic apart from its construction
  */
 public class Note {
-
+  
+  /**
+   * 
+   * @param onsetInTicks
+   * @param durationInTicks
+   * @param pitch
+   * @param channel
+   * @param track
+   */
   Note(long onsetInTicks, long durationInTicks, int pitch, int channel, int track) {
     this.onsetInTicks = onsetInTicks;
     this.durationInTicks = durationInTicks;
