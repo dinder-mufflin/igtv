@@ -47,4 +47,12 @@ public class Tablature {
     this.frames = frames;
   }
 
+  public void print() {
+    
+    for(int i=0; i<30; i++) {
+      Frame curr = frames.get(i);
+      curr.print();
+    }
+  }
+
 }

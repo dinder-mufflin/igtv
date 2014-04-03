@@ -6,7 +6,9 @@ import java.util.ResourceBundle;
 
 import com.igtv.Main;
 import com.igtv.structures.Score;
+import com.igtv.structures.Tablature;
 import com.igtv.midi.io.MidiReader;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -125,12 +127,22 @@ public class ImportController extends AnchorPane implements Initializable {
   }
 
   public void onPreviewRequested(ActionEvent e) {
-    TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
+    if (application.player.isPlaying()) {
+      application.player.stop();
+    } else {
+      TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
-    Score score = item.getScore();
+      Score score = item.getScore();
 
-    application.player.load(score.getSequence());
-    application.player.play();
+      Tablature t = new Tablature(score);
+      t.print();
+      application.player.load(score.getSequence());
+      long start = score.getNotes().get(0).getOnsetInTicks();
+      System.out.println("Start = "+start);
+      application.player.seek(start);
+      application.player.play();
+    }
+
   }
 
   public void onTrackSubmit(ActionEvent e) {

@@ -1,14 +1,10 @@
 package com.igtv.audio;
 
-import java.io.File;
-import java.io.IOException;
-
 import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.MidiSystem;
 import javax.sound.midi.MidiUnavailableException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
-import javax.sound.midi.Track;
 
 /**
  * Plays and stops any
@@ -19,14 +15,12 @@ public class MidiPlayer {
   private boolean isPlaying = false;
 
   public boolean load(Sequence seq) {
-
-    if (isPlaying) {
+    
+    if (isPlaying()) {
       stop();
     }
-
+    
     try {
-      // Sequence sequence = MidiSystem.getSequence(file);
-
       // Create a sequencer for the sequence
       sequencer = MidiSystem.getSequencer();
       sequencer.open();
@@ -63,6 +57,19 @@ public class MidiPlayer {
       sequencer.start();
       isPlaying = true;
       return true;
+    }
+  }
+
+  /**
+   * Seeks to a specified onset
+   * 
+   * @param onsetInTicks
+   */
+  public void seek(long onsetInTicks) {
+    if (sequencer == null) {
+      // Do nothing
+    } else {
+      sequencer.setTickPosition(onsetInTicks);
     }
   }
 

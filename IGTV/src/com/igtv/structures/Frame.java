@@ -1,6 +1,7 @@
 package com.igtv.structures;
 
 import java.util.HashSet;
+import java.util.Iterator;
 
 /**
  * Represents all notes beginning at one point in time.
@@ -35,5 +36,14 @@ public class Frame {
   
   public double getOnsetInTicks() {
     return onsetInTicks;
+  }
+
+  public void print() {
+    System.out.println("\nFRAME: "+onsetInTicks);
+    Iterator<Note> i = notes.iterator();
+    while(i.hasNext()) {
+      Note curr = i.next();
+      System.out.println("\t"+curr.getPitch());
+    }
   }
 }
