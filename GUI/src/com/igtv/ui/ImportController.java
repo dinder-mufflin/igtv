@@ -129,6 +129,9 @@ public class ImportController extends AnchorPane implements Initializable {
   public void onPreviewRequested(ActionEvent e) {
     if (application.player.isPlaying()) {
       application.player.stop();
+      
+      //Display "Preview" in the button
+      btnPreview.setText("Preview");
     } else {
       TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
@@ -141,6 +144,9 @@ public class ImportController extends AnchorPane implements Initializable {
       System.out.println("Start = "+start);
       application.player.seek(start);
       application.player.play();
+      
+      //Display "Stop" in the button
+      btnPreview.setText("Stop");
     }
 
   }
