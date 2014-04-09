@@ -86,6 +86,10 @@ public class MidiPlayer {
     isPlaying = false;
   }
 
+  /**
+   * 
+   * @return
+   */
   public boolean isPlaying() {
     return isPlaying;
   }
