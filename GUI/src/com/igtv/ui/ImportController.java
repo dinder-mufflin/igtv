@@ -84,8 +84,12 @@ public class ImportController extends AnchorPane implements Initializable {
       Score importedScore = MidiReader.readScore(file.getPath());
 
       ObservableList<TrackTableItem> tracks = FXCollections.observableArrayList();
+      
+      //Add full score
+      tracks.add(new TrackTableItem(0, "All", importedScore));
 
-      for (int i = 0; i < importedScore.numberOfTracks(); i++) {
+      //Add individual tracks
+      for (int i = 1; i < importedScore.numberOfTracks(); i++) {
 
         Score currentTrack = importedScore.getTrack(i);
 
