@@ -9,7 +9,7 @@ import java.util.LinkedList;
  *
  */
 public class Tablature {
-  
+
   private LinkedList<Frame> frames;
 
   /**
@@ -43,13 +43,13 @@ public class Tablature {
 
       frames.getLast().addNote(curr);
     }
-    
+
     this.frames = frames;
   }
 
   public void print() {
-    
-    for(int i=0; i<30; i++) {
+
+    for (int i = 0; i < 30; i++) {
       Frame curr = frames.get(i);
       curr.print();
     }

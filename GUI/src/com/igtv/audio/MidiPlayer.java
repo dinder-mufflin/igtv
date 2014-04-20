@@ -15,11 +15,11 @@ public class MidiPlayer {
   private boolean isPlaying = false;
 
   public boolean load(Sequence seq) {
-    
+
     if (isPlaying()) {
       stop();
     }
-    
+
     try {
       // Create a sequencer for the sequence
       sequencer = MidiSystem.getSequencer();

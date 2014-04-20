@@ -85,11 +85,11 @@ public class ImportController extends AnchorPane implements Initializable {
       Score importedScore = MidiReader.readScore(file.getPath());
 
       ObservableList<TrackTableItem> tracks = FXCollections.observableArrayList();
-      
-      //Add full score
+
+      // Add full score
       tracks.add(new TrackTableItem(0, "All", importedScore));
 
-      //Add individual tracks
+      // Add individual tracks
       for (int i = 1; i < importedScore.numberOfTracks(); i++) {
 
         Score currentTrack = importedScore.getTrack(i);
@@ -134,27 +134,27 @@ public class ImportController extends AnchorPane implements Initializable {
   public void onPreviewRequested(ActionEvent e) {
     if (application.player.isPlaying()) {
       application.player.stop();
-      //Display "Preview" in the button
+      // Display "Preview" in the button
       btnPreview.setText("Preview");
     } else {
       TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
       Score score = item.getScore();
       try {
-		PicCreator.generatePicture(score.getNotes());
-	} catch (Exception e1) {
-		e1.printStackTrace();
-	}
+        PicCreator.generatePicture(score.getNotes());
+      } catch (Exception e1) {
+        e1.printStackTrace();
+      }
 
       Tablature t = new Tablature(score);
       t.print();
       application.player.load(score.getSequence());
       long start = score.getNotes().get(0).getOnsetInTicks();
-      System.out.println("Start = "+start);
+      System.out.println("Start = " + start);
       application.player.seek(start);
       application.player.play();
-      
-      //Display "Stop" in the button
+
+      // Display "Stop" in the button
       btnPreview.setText("Stop");
     }
 
