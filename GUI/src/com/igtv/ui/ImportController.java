@@ -5,6 +5,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.igtv.Main;
+import com.igtv.pic.util.PicCreator;
 import com.igtv.structures.Score;
 import com.igtv.structures.Tablature;
 import com.igtv.midi.io.MidiReader;
@@ -133,13 +134,17 @@ public class ImportController extends AnchorPane implements Initializable {
   public void onPreviewRequested(ActionEvent e) {
     if (application.player.isPlaying()) {
       application.player.stop();
-      
       //Display "Preview" in the button
       btnPreview.setText("Preview");
     } else {
       TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
       Score score = item.getScore();
+      try {
+		PicCreator.generatePicture(score.getNotes());
+	} catch (Exception e1) {
+		e1.printStackTrace();
+	}
 
       Tablature t = new Tablature(score);
       t.print();

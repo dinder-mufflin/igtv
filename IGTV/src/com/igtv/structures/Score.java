@@ -6,6 +6,8 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
+import com.igtv.pic.util.PicCreator;
+
 import edu.columbia.ee.csmit.MidiKaraoke.read.NotesInMidi;
 import edu.columbia.ee.csmit.MidiKaraoke.read.PianoRoll;
 import edu.columbia.ee.csmit.MidiKaraoke.read.PianoRollViewParser;
@@ -27,11 +29,13 @@ public class Score {
    * Number of ticks per one quarter note.
    */
   private double ticksPerQuarterNotes;
+  
+  private ArrayList<Note> notesList;
 
   private NotesInMidi[] notes1D;
 
   private Sequence seq;
-
+  
   public Score(Sequence seq) {
     this.seq = seq;
 
@@ -41,6 +45,8 @@ public class Score {
       double[][] noteArray = roll.getNotesDoubles();
       this.notes = noteArray;
       this.notes1D = notes;
+      this.notesList = getNotes();
+      //PicCreator.generatePicture(this.notesList);
     } catch (Exception e) {
       System.out.println("Problem!");
       e.printStackTrace();
@@ -110,7 +116,7 @@ public class Score {
       int track = test.getTrackNumber();
 
       // Create the note and add it to the ArrayList
-      note = new Note(onset, duration, pitch, channel, track);
+      note = new Note(onset, duration, pitch, channel, track, 0, 0);
       output.add(note);
     }
     return output;

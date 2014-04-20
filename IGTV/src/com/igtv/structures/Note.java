@@ -4,87 +4,136 @@ package com.igtv.structures;
  * DTO representation of a note. Performs no logic apart from its construction
  * 
  */
-public class Note {
-  
-  /**
-   * 
-   * @param onsetInTicks
-   * @param durationInTicks
-   * @param pitch
-   * @param channel
-   * @param track
-   */
-  Note(long onsetInTicks, long durationInTicks, int pitch, int channel, int track) {
-    this.onsetInTicks = onsetInTicks;
-    this.durationInTicks = durationInTicks;
-    this.pitch = pitch;
-    this.channel = channel;
-    this.track = track;
-  }
+public class Note implements Comparable<Note>{
 
-  /**
-   * Onset of the note (in ticks)
-   */
-  private long onsetInTicks;
+	private int string;
 
-  /**
-   * Duration of the note (in ticks)
-   */
-  private long durationInTicks;
+	private int fret;
 
-  /**
-   * MIDI pitch (60 is Middle C, 61 is C#, etc.)
-   */
-  private int pitch;
+	/**
+	 * 
+	 * @param onsetInTicks
+	 * @param durationInTicks
+	 * @param pitch
+	 * @param channel
+	 * @param track
+	 */
+	Note(long onsetInTicks, long durationInTicks, int pitch, int channel,
+			int track, int string, int fret) {
+		this.onsetInTicks = onsetInTicks;
+		this.durationInTicks = durationInTicks;
+		this.pitch = pitch;
+		this.channel = channel;
+		this.track = track;
+		this.string = -1;
+		this.fret = -1;
+	}
 
-  /**
-   * Channel of the note from the imported MIDI file
-   */
-  private int channel;
+	/**
+	 * Onset of the note (in ticks)
+	 */
+	private long onsetInTicks;
 
-  /**
-   * Track of the note from the imported MIDI file
-   */
-  private int track;
+	/**
+	 * Duration of the note (in ticks)
+	 */
+	private long durationInTicks;
 
-  public long getOnsetInTicks() {
-    return onsetInTicks;
-  }
+	/**
+	 * MIDI pitch (60 is Middle C, 61 is C#, etc.)
+	 */
+	private int pitch;
 
-  public void setOnsetInTicks(int onsetInTicks) {
-    this.onsetInTicks = onsetInTicks;
-  }
+	/**
+	 * Channel of the note from the imported MIDI file
+	 */
+	private int channel;
 
-  public long getDurationInTicks() {
-    return durationInTicks;
-  }
+	/**
+	 * Track of the note from the imported MIDI file
+	 */
+	private int track;
 
-  public void setDurationInTicks(int durationInTicks) {
-    this.durationInTicks = durationInTicks;
-  }
+	public long getOnsetInTicks() {
+		return onsetInTicks;
+	}
 
-  public int getPitch() {
-    return pitch;
-  }
+	public void setOnsetInTicks(int onsetInTicks) {
+		this.onsetInTicks = onsetInTicks;
+	}
 
-  public void setPitch(int pitch) {
-    this.pitch = pitch;
-  }
+	public long getDurationInTicks() {
+		return durationInTicks;
+	}
 
-  public int getChannel() {
-    return channel;
-  }
+	public void setDurationInTicks(int durationInTicks) {
+		this.durationInTicks = durationInTicks;
+	}
 
-  public void setChannel(int channel) {
-    this.channel = channel;
-  }
+	public int getPitch() {
+		return pitch;
+	}
 
-  public int getTrack() {
-    return track;
-  }
+	public void setPitch(int pitch) {
+		this.pitch = pitch;
+	}
 
-  public void setTrack(int track) {
-    this.track = track;
-  }
+	public int getChannel() {
+		return channel;
+	}
+
+	public void setChannel(int channel) {
+		this.channel = channel;
+	}
+
+	public int getTrack() {
+		return track;
+	}
+
+	public void setTrack(int track) {
+		this.track = track;
+	}
+
+	public void setOnsetInTicks(long onsetInTicks) {
+		this.onsetInTicks = onsetInTicks;
+	}
+
+	public void setDurationInTicks(long durationInTicks) {
+		this.durationInTicks = durationInTicks;
+	}
+
+	public int getString() {
+		return string;
+	}
+
+	public void setString(int string) {
+		this.string = string;
+	}
+
+	public int getFret() {
+		return fret;
+	}
+
+	public void setFret(int fret) {
+		this.fret = fret;
+	}
+
+	@Override
+	public String toString() {
+		return "Note [string=" + string + ", fret=" + fret + ", onsetInTicks="
+				+ onsetInTicks + ", durationInTicks=" + durationInTicks
+				+ ", pitch=" + pitch + ", channel=" + channel + ", track="
+				+ track + "]";
+	}
+	
+	@Override
+	public int compareTo(Note note){
+		if (this.getPitch() < note.getPitch())
+            return -1;
+        else if (this.getPitch() == note.getPitch())
+            return 0;
+        else 
+            return 1;
+	}
 
 }
