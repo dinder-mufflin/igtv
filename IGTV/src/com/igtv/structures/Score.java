@@ -29,13 +29,13 @@ public class Score {
    * Number of ticks per one quarter note.
    */
   private double ticksPerQuarterNotes;
-  
+
   private ArrayList<Note> notesList;
 
   private NotesInMidi[] notes1D;
 
   private Sequence seq;
-  
+
   public Score(Sequence seq) {
     this.seq = seq;
 
@@ -46,7 +46,7 @@ public class Score {
       this.notes = noteArray;
       this.notes1D = notes;
       this.notesList = getNotes();
-      //PicCreator.generatePicture(this.notesList);
+      // PicCreator.generatePicture(this.notesList);
     } catch (Exception e) {
       System.out.println("Problem!");
       e.printStackTrace();

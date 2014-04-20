@@ -7,10 +7,10 @@ import java.util.Iterator;
  * Represents all notes beginning at one point in time.
  */
 public class Frame {
-  
+
   private double onsetInTicks;
-  
-  //Assign one note to each string (when needed)
+
+  // Assign one note to each string (when needed)
   private Note[] guitarStrings = new Note[6];
 
   HashSet<Note> notes = new HashSet<Note>();
@@ -36,17 +36,17 @@ public class Frame {
   public HashSet<Note> getNotes() {
     return notes;
   }
-  
+
   public double getOnsetInTicks() {
     return onsetInTicks;
   }
 
   public void print() {
-    System.out.println("\nFRAME: "+onsetInTicks);
+    System.out.println("\nFRAME: " + onsetInTicks);
     Iterator<Note> i = notes.iterator();
-    while(i.hasNext()) {
+    while (i.hasNext()) {
       Note curr = i.next();
-      System.out.println("\t"+curr.getPitch());
+      System.out.println("\t" + curr.getPitch());
     }
   }
 }
