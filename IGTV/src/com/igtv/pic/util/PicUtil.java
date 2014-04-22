@@ -24,46 +24,27 @@ public class PicUtil {
 
       Font font = new Font("TimesRoman", Font.BOLD, 20);
       ig2.setFont(font);
-      /* String message = "www.java2s.com!"; */
-      /* FontMetrics fontMetrics = ig2.getFontMetrics(); */
-      /*
-       * int stringWidth = fontMetrics.stringWidth(message); int stringHeight =
-       * fontMetrics.getAscent();
-       */
+
       ig2.setPaint(Color.black);
-      /*
-       * ig2.drawString(message, (width - stringWidth) / 2, height / 2 + stringHeight / 4);
-       */
+
       printLines(ig2, width);
 
       for (int i = 0; i < list.size(); i++) {
         ArrayList<Note> secondList = (ArrayList<Note>) list.get(i);
         printSecondList(secondList, index, ig2);
         index += 50;
-        // Collections.sort(secondList);
-        /*
-         * for (int j = 0; j < secondList.size(); j++) { if (j + 1 < secondList.size()) {
-         * PicCreator.updateNextNote(secondList.get(j), secondList.get(j + 1)); }
-         * System.out.println(secondList.get(j)); } System.out.println("\n\n");
-         */
       }
-
       ImageIO.write(bi, "PNG", new File("test.png"));
-
     } catch (Exception ie) {
       ie.printStackTrace();
     }
-
   }
 
   private static void printLines(Graphics2D ig2, int width) {
     for (int i = 0; i < width; i++) {
-      ig2.drawString("-", i, 450);
-      ig2.drawString("-", i, 400);
-      ig2.drawString("-", i, 350);
-      ig2.drawString("-", i, 300);
-      ig2.drawString("-", i, 250);
-      ig2.drawString("-", i, 200);
+      for (int j = 200; j < 500; j += 50) {
+        ig2.drawString("-", i, j);
+      }
     }
   }
 

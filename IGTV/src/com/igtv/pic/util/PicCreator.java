@@ -66,8 +66,6 @@ public class PicCreator {
           while (j + 1 < list.size()) {
             Note next = list.get(j + 1);
             if (next.getOnsetInTicks() == note.getOnsetInTicks() && string != 5) {
-              // next = updateNextNote(list.get(stackListIndex),
-              // note.getString(), 0, note);
               stack.add(stackListIndex, next);
               stackListIndex++;
               i++;
@@ -100,7 +98,6 @@ public class PicCreator {
       PicUtil.drawTab(sameNotes);
       hasBeenWriten = false;
     }
-    // PicUtil.drawTab(sameNotes);
   }
 
   public static void updateNextNote(Note note, Note compare) {
@@ -123,5 +120,4 @@ public class PicCreator {
       }
     }
   }
-
 }
