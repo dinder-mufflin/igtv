@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 import com.igtv.Main;
 import com.igtv.structures.Score;
 import com.igtv.midi.io.MidiReader;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -16,6 +17,7 @@ import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
@@ -26,6 +28,13 @@ import javafx.scene.layout.AnchorPane;
 
 public class TabViewerController extends AnchorPane implements Initializable {
 
+  @FXML
+  Button btnPlay;
+  @FXML
+  AnchorPane anchorPane;
+  @FXML
+  Label lblTitle;
+  
   private Main application;
 
   public void setApp(Main application) {
@@ -34,6 +43,10 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    // This is basically our constructor
+    //TODO: Display the notes on the tablature
+  }
+  
+  public void onPlayClicked(ActionEvent e) {
+    //TODO:
   }
 }
