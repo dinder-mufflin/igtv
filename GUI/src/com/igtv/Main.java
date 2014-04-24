@@ -28,9 +28,9 @@ public class Main extends Application {
   private final FileChooser fileChooser = new FileChooser();
 
   public final MidiPlayer player = new MidiPlayer();
-  
+
   public Tablature tabs;
-  
+
   public Tablature getTablature() {
     return tabs;
   }

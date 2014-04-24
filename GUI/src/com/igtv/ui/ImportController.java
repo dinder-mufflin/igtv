@@ -140,7 +140,7 @@ public class ImportController extends AnchorPane implements Initializable {
       TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
       Score score = item.getScore();
-      
+
       application.player.load(score.getSequence());
       long start = score.getNotes().get(0).getOnsetInTicks();
       System.out.println("Start = " + start);
@@ -154,18 +154,18 @@ public class ImportController extends AnchorPane implements Initializable {
   }
 
   public void onTrackSubmit(ActionEvent e) {
-    //Validate their choice
-    if(tblTracks.getSelectionModel().getSelectedIndex() == 0) {
-      //Do nothing. They chose an option that doesn't make sense
+    // Validate their choice
+    if (tblTracks.getSelectionModel().getSelectedIndex() == 0) {
+      // Do nothing. They chose an option that doesn't make sense
       return;
     }
-    
+
     TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
     Score score = item.getScore();
     Tablature t = new Tablature(score);
-    t.setTitle("Hotel California"); //TODO: Replace with file's title
-    
+    t.setTitle("Hotel California"); // TODO: Replace with file's title
+
     application.gotoTabViewer(t);
   }
 }

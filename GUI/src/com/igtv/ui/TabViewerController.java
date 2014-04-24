@@ -46,7 +46,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
   Pane anchorPane;
   @FXML
   Label lblTitle;
-  
+
   private double boxHeight;
 
   private Main application;
@@ -57,7 +57,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    
+
   }
 
   /**
@@ -65,7 +65,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   public void drawTablature() {
     boxHeight = anchorPane.getHeight();
-    
+
     Tablature t = application.getTablature();
 
     lblTitle.setText(t.getTitle());
@@ -87,14 +87,14 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   private void drawFrame(Frame frame) {
     int xOffset = xOffset(frame.getOnsetInTicks());
-    
+
     Integer[] notes = frame.guitarStringFrets;
-    
-    for(int i=0; i<notes.length; i++) {
-      if(notes[i] == null) {
+
+    for (int i = 0; i < notes.length; i++) {
+      if (notes[i] == null) {
         continue;
       } else {
-        double yOffset = yOffset(6-i);
+        double yOffset = yOffset(6 - i);
         drawNote(xOffset, yOffset, notes[i], 10);
       }
     }
@@ -109,14 +109,14 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * @param duration
    */
   private void drawNote(double xOffset, double yOffset, int fret, long duration) {
-    Rectangle r = new Rectangle(10, boxHeight/6, Color.LIGHTBLUE);
+    Rectangle r = new Rectangle(10, boxHeight / 6, Color.LIGHTBLUE);
     r.relocate(xOffset, yOffset);
-    
-    Label l = new Label(""+fret);
+
+    Label l = new Label("" + fret);
     l.relocate(xOffset, yOffset);
-    
+
     anchorPane.getChildren().addAll(r, l);
-    
+
   }
 
   /**
@@ -142,7 +142,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
   public double yOffset(int guitarString) {
     // Top margin
     double shift = 0;
-    double pixelsBetweenStrings = boxHeight/6;
+    double pixelsBetweenStrings = boxHeight / 6;
 
     return shift + pixelsBetweenStrings * guitarString;
   }
