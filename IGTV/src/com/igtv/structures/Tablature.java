@@ -22,6 +22,10 @@ public class Tablature {
     parse(score);
   }
 
+  public LinkedList<Frame> getFrames() {
+    return frames;
+  }
+
   /**
    * Parses a {@Score}
    * 
@@ -33,18 +37,6 @@ public class Tablature {
 
     // Frames for saving into
     LinkedList<Frame> frames = new LinkedList<Frame>();
-
-//    Iterator<Note> i = notes.iterator();
-//    while (i.hasNext()) {
-//      // Get the current note
-//      Note curr = i.next();
-//
-//      if (frames.isEmpty() || frames.getLast().getOnsetInTicks() != curr.getOnsetInTicks()) {
-//        frames.add(new Frame(curr.getOnsetInTicks()));
-//      }
-//
-//      frames.getLast().addNote(curr);
-//    }
 
     //I don't know what this is
     ArrayList something = PicCreator.createTabNumbers(notes, PicCreator.START_PITCH, PicCreator.END_PITCH);

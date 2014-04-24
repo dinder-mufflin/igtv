@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.InputStream;
 
 import com.igtv.audio.MidiPlayer;
+import com.igtv.structures.Tablature;
 import com.igtv.ui.ImportController;
 import com.igtv.ui.TabViewerController;
 
@@ -27,6 +28,12 @@ public class Main extends Application {
   private final FileChooser fileChooser = new FileChooser();
 
   public final MidiPlayer player = new MidiPlayer();
+  
+  public Tablature tabs;
+  
+  public Tablature getTablature() {
+    return tabs;
+  }
 
   @Override
   public void start(Stage primaryStage) {
@@ -66,11 +73,13 @@ public class Main extends Application {
     }
   }
 
-  public void gotoTabViewer() {
+  public void gotoTabViewer(Tablature t) {
+    tabs = t;
     try {
       TabViewerController viewer =
           (TabViewerController) replaceSceneContent("ui/fxml/TabViewer.fxml");
       viewer.setApp(this);
+      viewer.drawTablature();
     } catch (Exception e) {
       // TODO Auto-generated catch block
       e.printStackTrace();

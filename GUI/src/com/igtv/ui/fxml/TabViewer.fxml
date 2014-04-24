@@ -9,11 +9,8 @@
 <children><Label fx:id="lblTitle" style="-fx-font-size: 30; -fx-font-family: Arial;" text="Song Name" /><HBox prefHeight="100.0" prefWidth="200.0" style="-fx-alignment: center;">
 <children><Button fx:id="btnPlay" mnemonicParsing="false" onAction="#onPlayClicked" style="-fx-alignment: center;" text="Play" />
 </children></HBox><ScrollPane hbarPolicy="ALWAYS" prefHeight="200.0" prefWidth="200.0" vbarPolicy="NEVER">
-  <content>
-    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
-<children><AnchorPane fx:id="anchorPane" layoutX="24.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-</children></AnchorPane>
-  </content>
+<content><Pane fx:id="anchorPane" prefHeight="200.0" prefWidth="10000.0" />
+</content>
 </ScrollPane>
 </children></VBox>
 </children></AnchorPane>

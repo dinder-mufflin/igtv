@@ -140,14 +140,7 @@ public class ImportController extends AnchorPane implements Initializable {
       TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
       Score score = item.getScore();
-      try {
-        PicCreator.generatePicture(score.getNotes());
-      } catch (Exception e1) {
-        e1.printStackTrace();
-      }
-
-      Tablature t = new Tablature(score);
-      t.print();
+      
       application.player.load(score.getSequence());
       long start = score.getNotes().get(0).getOnsetInTicks();
       System.out.println("Start = " + start);
@@ -161,6 +154,19 @@ public class ImportController extends AnchorPane implements Initializable {
   }
 
   public void onTrackSubmit(ActionEvent e) {
-    application.gotoTabViewer();
+    //Validate their choice
+    if(tblTracks.getSelectionModel().getSelectedIndex() == 0) {
+      //Do nothing. They chose an option that doesn't make sense
+      return;
+    }
+    
+    TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
+
+    Score score = item.getScore();
+    Tablature t = new Tablature(score);
+    t.print(); //TODO: Remove this
+    
+    application.gotoTabViewer(t);
+    
   }
 }
