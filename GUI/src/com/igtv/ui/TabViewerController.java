@@ -1,52 +1,53 @@
 package com.igtv.ui;
 
-import java.awt.ScrollPane;
-import java.io.File;
 import java.net.URL;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.igtv.Main;
 import com.igtv.structures.Frame;
-import com.igtv.structures.Note;
-import com.igtv.structures.Score;
 import com.igtv.structures.Tablature;
-import com.igtv.midi.io.MidiReader;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.Tooltip;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class TabViewerController extends AnchorPane implements Initializable {
 
   @FXML
-  Button btnPlay;
+  public Line lnMarker;
   @FXML
-  Pane anchorPane;
+  private Button btnPlay;
   @FXML
-  Label lblTitle;
-  
+  private Pane anchorPane;
+  @FXML
+  private Label lblTitle;
+
+  private Tablature tabs;
+
   private double boxHeight;
 
   private Main application;
@@ -57,7 +58,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
   @Override
   public void initialize(URL location, ResourceBundle resources) {
-    
+
   }
 
   /**
@@ -65,12 +66,12 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   public void drawTablature() {
     boxHeight = anchorPane.getHeight();
-    
-    Tablature t = application.getTablature();
 
-    lblTitle.setText(t.getTitle());
+    tabs = application.getTablature();
 
-    LinkedList<Frame> frames = t.getFrames();
+    lblTitle.setText(tabs.getTitle());
+
+    LinkedList<Frame> frames = tabs.getFrames();
 
     Iterator<Frame> i = frames.iterator();
     while (i.hasNext()) {
@@ -78,6 +79,16 @@ public class TabViewerController extends AnchorPane implements Initializable {
       Frame curr = i.next();
       drawFrame(curr);
     }
+
+    //Setup click event
+    anchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        lnMarker.setTranslateX(e.getX());
+        lastPosition = (long) e.getX();
+        application.player.seek((long) e.getX());
+      }
+    });
   }
 
   /**
@@ -87,18 +98,31 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   private void drawFrame(Frame frame) {
     int xOffset = xOffset(frame.getOnsetInTicks());
-    
+
     Integer[] notes = frame.guitarStringFrets;
-    
-    for(int i=0; i<notes.length; i++) {
-      if(notes[i] == null) {
+
+    for (int i = 0; i < notes.length; i++) {
+      if (notes[i] == null) {
         continue;
       } else {
-        double yOffset = yOffset(6-i);
+        double yOffset = yOffset(6 - i);
         drawNote(xOffset, yOffset, notes[i], 10);
       }
     }
+    drawLines();
   }
+  
+  private void drawLines() {
+    for(int i=1; i<5; i++) {
+      double height = (boxHeight/6)*i;
+      Line l = new Line(0, height, anchorPane.getWidth(), height);
+      l.setFill(Color.BLACK);
+      anchorPane.getChildren().add(l);
+    }
+  }
+
+  //For disposal purposes
+  public static ArrayList<Label> labelCache = new ArrayList<Label>();
 
   /**
    * Draws a note onto {@link #anchorPane}
@@ -109,14 +133,28 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * @param duration
    */
   private void drawNote(double xOffset, double yOffset, int fret, long duration) {
-    Rectangle r = new Rectangle(10, boxHeight/6, Color.LIGHTBLUE);
+    Rectangle r = new Rectangle(10, boxHeight / 6, Color.LIGHTBLUE);
     r.relocate(xOffset, yOffset);
-    
-    Label l = new Label(""+fret);
+
+    final Label l = new Label("" + fret);
     l.relocate(xOffset, yOffset);
     
-    anchorPane.getChildren().addAll(r, l);
+    l.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
+      @Override
+      public void handle(MouseEvent e) {
+        final Tooltip tooltip = new Tooltip();
+        tooltip.setText(
+            "\nYour password must be\n" +
+            "at least 8 characters in length\n"
+        );
+        l.setTooltip(tooltip);
+      }
+    });
     
+    labelCache.add(l);
+    
+
+    anchorPane.getChildren().addAll(r, l);
   }
 
   /**
@@ -127,7 +165,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   public int xOffset(double onset) {
     // Left margin
-    int shift = 1;
+    int shift = 0;
     int pixelsPerBeat = 1;
 
     return (int) (shift + onset * pixelsPerBeat);
@@ -142,12 +180,42 @@ public class TabViewerController extends AnchorPane implements Initializable {
   public double yOffset(int guitarString) {
     // Top margin
     double shift = 0;
-    double pixelsBetweenStrings = boxHeight/6;
+    double pixelsBetweenStrings = boxHeight / 6;
 
     return shift + pixelsBetweenStrings * guitarString;
   }
 
+  public Timer scrollTimer;
+  private long lastPosition = 0;
+
   public void onPlayClicked(ActionEvent e) {
-    // TODO:
+    if (application.player.isPlaying()) {
+      btnPlay.setText("Play");
+      stopTimer();
+      lastPosition = application.player.getTickPosition();
+      application.player.stop();
+    } else {
+      btnPlay.setText("Pause");
+      application.player.stop();
+      application.player.load(tabs.getScore().getSequence());
+      application.player.seek(lastPosition);
+      application.player.play();
+
+      final long offsetError = 0;
+
+      scrollTimer = new Timer();
+      scrollTimer.scheduleAtFixedRate(new TimerTask() {
+        @Override
+        public void run() {
+          lnMarker.setTranslateX(xOffset(application.player.getTickPosition() - offsetError));
+        }
+      }, 10, 10);
+    }
+  }
+
+  public void stopTimer() {
+    System.out.println(scrollTimer.hashCode());
+    System.out.println(lnMarker.hashCode());
+    scrollTimer.cancel();
   }
 }

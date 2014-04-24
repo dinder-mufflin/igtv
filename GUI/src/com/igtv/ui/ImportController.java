@@ -4,12 +4,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.igtv.Main;
-import com.igtv.pic.util.PicCreator;
-import com.igtv.structures.Score;
-import com.igtv.structures.Tablature;
-import com.igtv.midi.io.MidiReader;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,6 +20,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+
+import com.igtv.Main;
+import com.igtv.midi.io.MidiReader;
+import com.igtv.structures.Score;
+import com.igtv.structures.Tablature;
 
 public class ImportController extends AnchorPane implements Initializable {
 
@@ -140,7 +139,7 @@ public class ImportController extends AnchorPane implements Initializable {
       TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
       Score score = item.getScore();
-      
+
       application.player.load(score.getSequence());
       long start = score.getNotes().get(0).getOnsetInTicks();
       System.out.println("Start = " + start);
@@ -154,18 +153,18 @@ public class ImportController extends AnchorPane implements Initializable {
   }
 
   public void onTrackSubmit(ActionEvent e) {
-    //Validate their choice
-    if(tblTracks.getSelectionModel().getSelectedIndex() == 0) {
-      //Do nothing. They chose an option that doesn't make sense
+    // Validate their choice
+    if (tblTracks.getSelectionModel().getSelectedIndex() == 0) {
+      // Do nothing. They chose an option that doesn't make sense
       return;
     }
-    
+
     TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
     Score score = item.getScore();
     Tablature t = new Tablature(score);
-    t.setTitle("Hotel California"); //TODO: Replace with file's title
-    
+    t.setTitle("Hotel California"); // TODO: Replace with file's title
+
     application.gotoTabViewer(t);
   }
 }
