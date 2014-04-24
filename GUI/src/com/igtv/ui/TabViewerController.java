@@ -167,6 +167,8 @@ public class TabViewerController extends AnchorPane implements Initializable {
   }
   
   public void stopTimer() {
+    System.out.println(scrollTimer.hashCode());
+    System.out.println(lnMarker.hashCode());
     scrollTimer.cancel();
   }
 }
