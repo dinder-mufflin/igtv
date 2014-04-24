@@ -12,7 +12,7 @@ public class PicCreator {
   private static ArrayList sameNotes;
 
   public static void generatePicture(ArrayList<Note> notesList) throws Exception {
-    correctNoteRange(notesList);
+    transposeToGuitarRange(notesList);
     createTabNumbers(notesList, START_PITCH, END_PITCH);
   }
 
@@ -21,7 +21,7 @@ public class PicCreator {
    * 
    * @param list
    */
-  private static void correctNoteRange(ArrayList<Note> list) {
+  private static void transposeToGuitarRange(ArrayList<Note> list) {
     for (Note note : list) {
       int pitch = note.getPitch();
       if (pitch < 40) {
@@ -62,7 +62,6 @@ public class PicCreator {
           note.setFret(counter);
           stack.add(stackListIndex, note);
           stackListIndex++;
-
           while (j + 1 < list.size()) {
             Note next = list.get(j + 1);
             if (next.getOnsetInTicks() == note.getOnsetInTicks() && string != 5) {
@@ -71,7 +70,6 @@ public class PicCreator {
               i++;
               j++;
             } else {
-
               sameNotes.add(mainListIndex, stack);
               mainListIndex++;
               break;

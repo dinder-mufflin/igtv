@@ -19,23 +19,17 @@ public class MidiReader {
    * @return
    */
   public static Score readScore(String midiFilePath) {
-
     File midiFile = new File(midiFilePath);
-
     if (!midiFile.exists()) {
       return null;
     }
-
+    
     try {
-
       Sequence seq = MidiSystem.getSequence(midiFile);
       return new Score(seq);
     } catch (Exception e) {
-
       e.printStackTrace();
     }
-
     return null;
-
   }
 }
