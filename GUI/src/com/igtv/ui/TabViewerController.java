@@ -68,6 +68,8 @@ public class TabViewerController extends AnchorPane implements Initializable {
     
     Tablature t = application.getTablature();
 
+    lblTitle.setText(t.getTitle());
+
     LinkedList<Frame> frames = t.getFrames();
 
     Iterator<Frame> i = frames.iterator();
@@ -124,16 +126,12 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * @return
    */
   public int xOffset(double onset) {
-//    return counter++;
-    
     // Left margin
     int shift = 1;
     int pixelsPerBeat = 1;
 
     return (int) (shift + onset * pixelsPerBeat);
   }
-  
-  //private int counter = 0; //TODO: Remove
 
   /**
    * Gets the y offset (in pixels) from a guitar string

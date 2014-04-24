@@ -1,7 +1,5 @@
 package com.igtv.tests.unit;
 
-import static org.junit.Assert.*;
-
 import org.junit.Test;
 
 import com.igtv.midi.io.MidiReader;
@@ -14,7 +12,7 @@ public class MidiReaderTest {
   @Test
   public void ValidMidiChosen_ReadScore_Imported() {
     //Setup
-    String testPath = "assets/midi/eagles-hotel_california.mid";
+    String testPath = "assets/midi/Hotel California.mid";
     
     //Act
     Score result = MidiReader.readScore(testPath);

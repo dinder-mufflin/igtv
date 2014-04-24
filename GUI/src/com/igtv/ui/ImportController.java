@@ -164,9 +164,8 @@ public class ImportController extends AnchorPane implements Initializable {
 
     Score score = item.getScore();
     Tablature t = new Tablature(score);
-    t.print(); //TODO: Remove this
+    t.setTitle("Hotel California"); //TODO: Replace with file's title
     
     application.gotoTabViewer(t);
-    
   }
 }

@@ -13,7 +13,7 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
 <children><VBox layoutX="-181.0" layoutY="-115.0" prefHeight="391.0" prefWidth="590.0" style="-fx-alignment: center;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
 <children>
-		<Label alignment="CENTER" layoutX="218.0" layoutY="57.0" text="Welcome Message!" /><HBox prefHeight="68.0" prefWidth="260.0" spacing="10.0" style="-fx-alignment: center;">
+		<Label alignment="CENTER" layoutX="218.0" layoutY="57.0" text="Choose a song to learn!" /><HBox prefHeight="68.0" prefWidth="260.0" spacing="10.0" style="-fx-alignment: center;">
 <children>
 		<Button fx:id="btnImport" defaultButton="true" layoutX="271.33837890625" layoutY="166.0" mnemonicParsing="false" onAction="#onImportClicked" text="Import" /><TextField fx:id="txtImport" disable="true" />
 </children></HBox>
