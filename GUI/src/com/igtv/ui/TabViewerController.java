@@ -1,51 +1,48 @@
 package com.igtv.ui;
 
-import java.awt.ScrollPane;
-import java.io.File;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.TimeUnit;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.ResourceBundle;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import com.igtv.Main;
 import com.igtv.structures.Frame;
-import com.igtv.structures.Note;
-import com.igtv.structures.Score;
 import com.igtv.structures.Tablature;
-import com.igtv.midi.io.MidiReader;
 
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.animation.PathTransition;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
-import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.Tab;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.MoveTo;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 
 public class TabViewerController extends AnchorPane implements Initializable {
 
+  @FXML
+  Line lnMarker;
   @FXML
   Button btnPlay;
   @FXML
   Pane anchorPane;
   @FXML
   Label lblTitle;
+
+  private Tablature tabs;
 
   private double boxHeight;
 
@@ -66,11 +63,11 @@ public class TabViewerController extends AnchorPane implements Initializable {
   public void drawTablature() {
     boxHeight = anchorPane.getHeight();
 
-    Tablature t = application.getTablature();
+    tabs = application.getTablature();
 
-    lblTitle.setText(t.getTitle());
+    lblTitle.setText(tabs.getTitle());
 
-    LinkedList<Frame> frames = t.getFrames();
+    LinkedList<Frame> frames = tabs.getFrames();
 
     Iterator<Frame> i = frames.iterator();
     while (i.hasNext()) {
@@ -116,7 +113,6 @@ public class TabViewerController extends AnchorPane implements Initializable {
     l.relocate(xOffset, yOffset);
 
     anchorPane.getChildren().addAll(r, l);
-
   }
 
   /**
@@ -147,7 +143,30 @@ public class TabViewerController extends AnchorPane implements Initializable {
     return shift + pixelsBetweenStrings * guitarString;
   }
 
+  private Timer scrollTimer;
+
   public void onPlayClicked(ActionEvent e) {
-    // TODO:
+    if (application.player.isPlaying()) {
+      stopTimer();
+      application.player.stop();
+    } else {
+      application.player.stop();
+      application.player.load(tabs.getScore().getSequence());
+      application.player.play();
+
+      final long offsetError = 0;
+
+      scrollTimer = new Timer();
+      scrollTimer.scheduleAtFixedRate(new TimerTask() {
+        @Override
+        public void run() {
+          lnMarker.setTranslateX(xOffset(application.player.getTickPosition() - offsetError));
+        }
+      }, 10, 10);
+    }
+  }
+  
+  public void stopTimer() {
+    scrollTimer.cancel();
   }
 }

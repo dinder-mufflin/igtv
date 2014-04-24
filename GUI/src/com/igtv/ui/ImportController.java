@@ -4,12 +4,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.igtv.Main;
-import com.igtv.pic.util.PicCreator;
-import com.igtv.structures.Score;
-import com.igtv.structures.Tablature;
-import com.igtv.midi.io.MidiReader;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -26,6 +20,11 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+
+import com.igtv.Main;
+import com.igtv.midi.io.MidiReader;
+import com.igtv.structures.Score;
+import com.igtv.structures.Tablature;
 
 public class ImportController extends AnchorPane implements Initializable {
 

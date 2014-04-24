@@ -82,8 +82,14 @@ public class MidiPlayer {
    * @return Whether or not the play command was successfully executed
    */
   public void stop() {
-    sequencer.stop();
-    isPlaying = false;
+    if (isPlaying()) {
+      sequencer.stop();
+      isPlaying = false;
+    }
+  }
+  
+  public long getTickPosition() {
+    return sequencer.getTickPosition();
   }
 
   /**
