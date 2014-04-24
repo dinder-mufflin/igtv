@@ -72,6 +72,7 @@ public class Tablature {
 
         Frame currFrame = frames.getLast();
 
+        currFrame.durations[note.getStringNo()] = note.getDurationInTicks();
         currFrame.guitarStringFrets[note.getStringNo()] = note.getFret();
       }
     }

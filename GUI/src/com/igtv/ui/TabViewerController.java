@@ -106,7 +106,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
         continue;
       } else {
         double yOffset = yOffset(6 - i);
-        drawNote(xOffset, yOffset, notes[i], 10);
+        drawNote(xOffset, yOffset, notes[i], frame.durations[i]);
       }
     }
     drawLines();
@@ -133,7 +133,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * @param duration
    */
   private void drawNote(double xOffset, double yOffset, int fret, long duration) {
-    Rectangle r = new Rectangle(10, boxHeight / 6, Color.LIGHTBLUE);
+    Rectangle r = new Rectangle(duration, boxHeight / 6, Color.LIGHTBLUE);
     r.relocate(xOffset, yOffset);
 
     final Label l = new Label("" + fret);
