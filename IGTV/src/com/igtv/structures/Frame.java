@@ -8,31 +8,10 @@ import java.util.Iterator;
  */
 public class Frame {
 
-  // TODO: Update values
-  /**
-   * Open pitch for each string
-   */
-  private final int[] basePitches = new int[] {0, 0, 0, 0, 0, 0};
-
-
-  /**
-   * 
-   * @param stringNo String number from the bottom string (0 corresponds to the low E string).
-   * @param midiPitch
-   * @return
-   */
-  private static int pitchToFret(int stringNo, int midiPitch) {
-    switch (stringNo) {
-      case 0:
-
-    }
-    return 9;
-  }
-
   private double onsetInTicks;
 
   // Assign one note to each string (when needed)
-  private Note[] guitarStrings = new Note[6];
+  public int[] guitarStringFrets = new int[6];
 
   HashSet<Note> notes = new HashSet<Note>();
 

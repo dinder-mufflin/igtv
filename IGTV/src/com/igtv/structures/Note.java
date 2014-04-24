@@ -102,7 +102,7 @@ public class Note implements Comparable<Note> {
 		this.durationInTicks = durationInTicks;
 	}
 
-	public int getString() {
+	public int getStringNo() {
 		return string;
 	}
 

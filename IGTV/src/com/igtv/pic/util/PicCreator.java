@@ -6,8 +6,8 @@ import com.igtv.structures.Note;
 
 public class PicCreator {
 
-  private static final int START_PITCH = 40;
-  private static final int END_PITCH = 88;
+  public static final int START_PITCH = 40;
+  public static final int END_PITCH = 88;
   static int mainListIndex, stackListIndex;
   private static ArrayList sameNotes;
 
@@ -43,9 +43,12 @@ public class PicCreator {
    * @param list List of notes for parsing
    * @param min Lower pitch?
    * @param max Higher pitch?
+   * @return 
    */
-  private static void createTabNumbers(ArrayList<Note> list, int min, int max) {
+  public static ArrayList createTabNumbers(ArrayList<Note> list, int min, int max) {
+    //What is the purpose of this?
     boolean hasBeenWriten = true;
+    
     sameNotes = new ArrayList<Note>(list.size());
     int counter, stringNo;
     mainListIndex = 0;
@@ -115,9 +118,10 @@ public class PicCreator {
       }
     }
     if (hasBeenWriten) {
-      PicUtil.drawTab(sameNotes);
+      //PicUtil.drawTab(sameNotes);
       hasBeenWriten = false;
     }
+    return sameNotes;
   }
 
   public static void updateNextNote(Note note, Note compare) {
@@ -125,11 +129,11 @@ public class PicCreator {
     int string = 0;
     int fret = 0;
     for (int i = START_PITCH; i < END_PITCH; i++) {
-      if (i == pitch && string != note.getString()) {
+      if (i == pitch && string != note.getStringNo()) {
         compare.setString(string);
         compare.setFret(fret);
         return;
-      } else if (i == pitch && string == note.getString()) {
+      } else if (i == pitch && string == note.getStringNo()) {
         compare.setString(-1);;
         return;
       } else if (fret == 7 && string != 5) {

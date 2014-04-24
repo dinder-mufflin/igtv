@@ -13,7 +13,10 @@ import com.igtv.structures.Note;
 
 public class PicUtil {
 
-  @SuppressWarnings({"unchecked", "rawtypes"})
+  /**
+   * 
+   * @param list
+   */
   static public void drawTab(ArrayList list) {
     try {
       int width = list.size() * 50, height = 500, index = 50;
@@ -50,10 +53,10 @@ public class PicUtil {
 
   private static void printSecondList(ArrayList<Note> secondList, int index, Graphics2D ig2) {
     for (Note note : secondList) {
-      if (note.getString() < 0) {
+      if (note.getStringNo() < 0) {
         continue;
       }
-      int height = getHeight(note.getString());
+      int height = getHeight(note.getStringNo());
       ig2.drawString(note.getFret() + "", index, height);
     }
   }
