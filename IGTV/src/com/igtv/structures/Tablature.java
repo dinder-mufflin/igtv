@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import com.igtv.pic.util.PicCreator;
+
 /**
  * 
  *
@@ -11,6 +13,16 @@ import java.util.LinkedList;
 public class Tablature {
 
   private LinkedList<Frame> frames;
+  
+  private String title;
+
+  public String getTitle() {
+    return title;
+  }
+
+  public void setTitle(String title) {
+    this.title = title;
+  }
 
   /**
    * 
@@ -18,6 +30,10 @@ public class Tablature {
    */
   public Tablature(Score score) {
     parse(score);
+  }
+
+  public LinkedList<Frame> getFrames() {
+    return frames;
   }
 
   /**
@@ -32,16 +48,25 @@ public class Tablature {
     // Frames for saving into
     LinkedList<Frame> frames = new LinkedList<Frame>();
 
-    Iterator<Note> i = notes.iterator();
-    while (i.hasNext()) {
-      // Get the current note
-      Note curr = i.next();
+    //I don't know what this is
+    ArrayList something = PicCreator.createTabNumbers(notes, PicCreator.START_PITCH, PicCreator.END_PITCH);
+    
+    for (int j = 0; j < something.size(); j++) {
+      ArrayList<Note> secondList = (ArrayList<Note>) something.get(j);
+      
+      for (Note note : secondList) {
+        if (note.getStringNo() < 0) {
+          continue;
+        }
+        
+        if (frames.isEmpty() || frames.getLast().getOnsetInTicks() != note.getOnsetInTicks()) {
+          frames.add(new Frame(note.getOnsetInTicks()));
+        }
 
-      if (frames.isEmpty() || frames.getLast().getOnsetInTicks() != curr.getOnsetInTicks()) {
-        frames.add(new Frame(curr.getOnsetInTicks()));
+        Frame currFrame = frames.getLast();
+        
+        currFrame.guitarStringFrets[note.getStringNo()] = note.getFret();
       }
-
-      frames.getLast().addNote(curr);
     }
 
     this.frames = frames;

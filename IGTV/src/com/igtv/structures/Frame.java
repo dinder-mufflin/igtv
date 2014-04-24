@@ -11,7 +11,7 @@ public class Frame {
   private double onsetInTicks;
 
   // Assign one note to each string (when needed)
-  private Note[] guitarStrings = new Note[6];
+  public Integer[] guitarStringFrets = new Integer[6];
 
   HashSet<Note> notes = new HashSet<Note>();
 

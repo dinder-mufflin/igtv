@@ -6,13 +6,13 @@ import com.igtv.structures.Note;
 
 public class PicCreator {
 
-  private static final int START_PITCH = 40;
-  private static final int END_PITCH = 88;
+  public static final int START_PITCH = 40;
+  public static final int END_PITCH = 88;
   static int mainListIndex, stackListIndex;
   private static ArrayList sameNotes;
 
   public static void generatePicture(ArrayList<Note> notesList) throws Exception {
-    correctNoteRange(notesList);
+    transposeToGuitarRange(notesList);
     createTabNumbers(notesList, START_PITCH, END_PITCH);
   }
 
@@ -21,7 +21,7 @@ public class PicCreator {
    * 
    * @param list
    */
-  private static void correctNoteRange(ArrayList<Note> list) {
+  private static void transposeToGuitarRange(ArrayList<Note> list) {
     for (Note note : list) {
       int pitch = note.getPitch();
       if (pitch < 40) {
@@ -38,54 +38,75 @@ public class PicCreator {
   }
 
   /**
-   * TODO CORRECT ALL SYSO WITH PICTURE PRINTING
+   * Uses {@PicUtil} to generate a tablature image.
    * 
-   * @param list
-   * @throws Exception
+   * @param list List of notes for parsing
+   * @param min Lower pitch?
+   * @param max Higher pitch?
+   * @return 
    */
-  @SuppressWarnings("unchecked")
-  private static void createTabNumbers(ArrayList<Note> list, int lower, int high) {
+  public static ArrayList createTabNumbers(ArrayList<Note> list, int min, int max) {
+    //What is the purpose of this?
     boolean hasBeenWriten = true;
+    
     sameNotes = new ArrayList<Note>(list.size());
-    int counter, string;
+    int counter, stringNo;
     mainListIndex = 0;
     stackListIndex = 0;
+
+    /*
+     * Loop through the list of notes
+     */
     for (int j = 0; j < list.size(); j++) {
-      Note note = list.get(j);
+      // Relevant note for this iteration
+      Note curr = list.get(j);
+      int currPitch = curr.getPitch();
+
       counter = 0;
-      string = 0;
-      int pitch = note.getPitch();
-      for (int i = lower; i < high; i++) {
-        if (i == pitch) {
+      stringNo = 0;
+
+      /*
+       * Iterate through from min to max
+       */
+      for (int i = min; i < max; i++) {
+
+        // If we have reached the pitch of the current note
+        if (i == currPitch) {
           ArrayList<Note> stack = new ArrayList<Note>(10);
-          note.setString(string);
-          note.setFret(counter);
-          stack.add(stackListIndex, note);
+
+          // Confirm the current string and fret number
+          curr.setString(stringNo);
+          curr.setFret(counter);
+
+          // I do not know what this means
+          stack.add(stackListIndex, curr);
           stackListIndex++;
 
+          // I do not understand
           while (j + 1 < list.size()) {
+            // Note following curr
             Note next = list.get(j + 1);
-            if (next.getOnsetInTicks() == note.getOnsetInTicks() && string != 5) {
-              // next = updateNextNote(list.get(stackListIndex),
-              // note.getString(), 0, note);
+
+            // I'm lost.
+            if (next.getOnsetInTicks() == curr.getOnsetInTicks() && stringNo != 5) {
               stack.add(stackListIndex, next);
               stackListIndex++;
               i++;
               j++;
             } else {
-
               sameNotes.add(mainListIndex, stack);
               mainListIndex++;
               break;
             }
           }
+
           counter = 0;
-          string = 0;
+          stringNo = 0;
           stackListIndex = 0;
-        } else if (counter == 7 && string != 5) {
+        } else if (counter == 7 && stringNo != 5) {
           counter = 0;
-          string++;
-          if (string != 4) {
+          stringNo++;
+          if (stringNo != 4) {
             i -= 3;
           } else {
             i -= 4;
@@ -97,10 +118,10 @@ public class PicCreator {
       }
     }
     if (hasBeenWriten) {
-      PicUtil.drawTab(sameNotes);
+      //PicUtil.drawTab(sameNotes);
       hasBeenWriten = false;
     }
-    // PicUtil.drawTab(sameNotes);
+    return sameNotes;
   }
 
   public static void updateNextNote(Note note, Note compare) {
@@ -108,11 +129,11 @@ public class PicCreator {
     int string = 0;
     int fret = 0;
     for (int i = START_PITCH; i < END_PITCH; i++) {
-      if (i == pitch && string != note.getString()) {
+      if (i == pitch && string != note.getStringNo()) {
         compare.setString(string);
         compare.setFret(fret);
         return;
-      } else if (i == pitch && string == note.getString()) {
+      } else if (i == pitch && string == note.getStringNo()) {
         compare.setString(-1);;
         return;
       } else if (fret == 7 && string != 5) {
@@ -123,5 +144,4 @@ public class PicCreator {
       }
     }
   }
-
 }
