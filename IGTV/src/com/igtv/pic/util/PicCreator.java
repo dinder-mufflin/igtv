@@ -38,33 +38,54 @@ public class PicCreator {
   }
 
   /**
-   * TODO CORRECT ALL SYSO WITH PICTURE PRINTING
+   * Uses {@PicUtil} to generate a tablature image.
    * 
-   * @param list
-   * @throws Exception
+   * @param list List of notes for parsing
+   * @param min Lower pitch?
+   * @param max Higher pitch?
    */
-  @SuppressWarnings("unchecked")
-  private static void createTabNumbers(ArrayList<Note> list, int lower, int high) {
+  private static void createTabNumbers(ArrayList<Note> list, int min, int max) {
     boolean hasBeenWriten = true;
     sameNotes = new ArrayList<Note>(list.size());
-    int counter, string;
+    int counter, stringNo;
     mainListIndex = 0;
     stackListIndex = 0;
+
+    /*
+     * Loop through the list of notes
+     */
     for (int j = 0; j < list.size(); j++) {
-      Note note = list.get(j);
+      // Relevant note for this iteration
+      Note curr = list.get(j);
+      int currPitch = curr.getPitch();
+
       counter = 0;
-      string = 0;
-      int pitch = note.getPitch();
-      for (int i = lower; i < high; i++) {
-        if (i == pitch) {
+      stringNo = 0;
+
+      /*
+       * Iterate through from min to max
+       */
+      for (int i = min; i < max; i++) {
+
+        // If we have reached the pitch of the current note
+        if (i == currPitch) {
           ArrayList<Note> stack = new ArrayList<Note>(10);
-          note.setString(string);
-          note.setFret(counter);
-          stack.add(stackListIndex, note);
+
+          // Confirm the current string and fret number
+          curr.setString(stringNo);
+          curr.setFret(counter);
+
+          // I do not know what this means
+          stack.add(stackListIndex, curr);
           stackListIndex++;
+
+          // I do not understand
           while (j + 1 < list.size()) {
+            // Note following curr
             Note next = list.get(j + 1);
-            if (next.getOnsetInTicks() == note.getOnsetInTicks() && string != 5) {
+
+            // I'm lost.
+            if (next.getOnsetInTicks() == curr.getOnsetInTicks() && stringNo != 5) {
               stack.add(stackListIndex, next);
               stackListIndex++;
               i++;
@@ -75,13 +96,14 @@ public class PicCreator {
               break;
             }
           }
+
           counter = 0;
-          string = 0;
+          stringNo = 0;
           stackListIndex = 0;
-        } else if (counter == 7 && string != 5) {
+        } else if (counter == 7 && stringNo != 5) {
           counter = 0;
-          string++;
-          if (string != 4) {
+          stringNo++;
+          if (stringNo != 4) {
             i -= 3;
           } else {
             i -= 4;
