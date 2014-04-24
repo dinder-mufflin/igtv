@@ -49,4 +49,8 @@ public class TabViewerController extends AnchorPane implements Initializable {
   public void onPlayClicked(ActionEvent e) {
     //TODO:
   }
+  
+  public void onPlayClicked(ActionEvent e) {
+    //TODO:
+  }
 }
