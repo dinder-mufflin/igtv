@@ -113,7 +113,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
   }
   
   private void drawLines() {
-    for(int i=1; i<5; i++) {
+    for(int i=1; i<6; i++) {
       double height = (boxHeight/6)*i;
       Line l = new Line(0, height, anchorPane.getWidth(), height);
       l.setFill(Color.BLACK);
