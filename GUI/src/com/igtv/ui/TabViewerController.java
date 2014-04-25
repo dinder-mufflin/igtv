@@ -220,7 +220,35 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * @param duration
    */
   private void drawNote(double xOffset, double yOffset, int fret, long duration) {
-    Rectangle r = new Rectangle(duration, boxHeight / 6, Color.LIGHTBLUE);
+    Rectangle r = new Rectangle(duration, boxHeight / 6);
+    switch(fret % 12) {
+      case 1: r.setFill(Color.RED);
+              break;
+      case 2: r.setFill(Color.PINK);
+              break;
+      case 3: r.setFill(Color.ORANGE);
+              break;
+      case 4: r.setFill(Color.BROWN);
+              break;        
+      case 5: r.setFill(Color.YELLOW);
+              break;
+      case 6: r.setFill(Color.LIGHTGREEN);
+              break;
+      case 7: r.setFill(Color.GREEN);
+              break;
+      case 8: r.setFill(Color.LIGHTBLUE);
+              break;
+      case 9: r.setFill(Color.BLUE);
+              break;
+      case 10: r.setFill(Color.DARKBLUE);
+              break;
+      case 11: r.setFill(Color.VIOLET);
+              break;
+      case 12: r.setFill(Color.DARKVIOLET);
+              break;
+      default: r.setFill(Color.LIGHTBLUE); 
+              break;
+    }
     r.relocate(xOffset, yOffset);
     
     final Label l = new Label("" + fret);
