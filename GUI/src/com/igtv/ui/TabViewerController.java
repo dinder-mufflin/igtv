@@ -48,7 +48,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
   private Tablature tabs;
 
-  private double boxHeight;
+  private double boxHeight, boxWidth;
 
   private Main application;
 
@@ -66,6 +66,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   public void drawTablature() {
     boxHeight = anchorPane.getHeight();
+    boxWidth = anchorPane.getWidth();
 
     tabs = application.getTablature();
 
@@ -73,6 +74,8 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
     LinkedList<Frame> frames = tabs.getFrames();
 
+    drawStringFiller();
+    
     Iterator<Frame> i = frames.iterator();
     while (i.hasNext()) {
       // Our current frame
@@ -100,7 +103,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
     int xOffset = xOffset(frame.getOnsetInTicks());
 
     Integer[] notes = frame.guitarStringFrets;
-
+    
     for (int i = 0; i < notes.length; i++) {
       if (notes[i] == null) {
         continue;
@@ -109,15 +112,37 @@ public class TabViewerController extends AnchorPane implements Initializable {
         drawNote(xOffset, yOffset, notes[i], frame.durations[i]);
       }
     }
+
     drawLines();
   }
 
   private void drawLines() {
-    for (int i = 1; i < 6; i++) {
+    for (int i = 0; i < 6; i++) {
       double height = (boxHeight / 6) * i;
       Line l = new Line(0, height, anchorPane.getWidth(), height);
       l.setFill(Color.BLACK);
       anchorPane.getChildren().add(l);
+    }
+  }
+  
+  /**
+   * Fills in alternating colors for each string
+   * 
+   */
+  private void drawStringFiller() {
+    for(int i = 0; i <= 6; i++) {
+      double yOffset = yOffset(6 - i);
+      Rectangle r;
+      int j = i % 2;
+      if(j!=0){
+        r = new Rectangle(boxWidth, boxHeight / 6, Color.LIGHTCYAN);
+        r.relocate(0, yOffset);
+      }
+      else {
+        r = new Rectangle(boxWidth, boxHeight / 6, Color.ALICEBLUE);
+        r.relocate(0, yOffset);
+      }
+        anchorPane.getChildren().add(r);
     }
   }
 
@@ -135,7 +160,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
   private void drawNote(double xOffset, double yOffset, int fret, long duration) {
     Rectangle r = new Rectangle(duration, boxHeight / 6, Color.LIGHTBLUE);
     r.relocate(xOffset, yOffset);
-
+    
     final Label l = new Label("" + fret);
     l.relocate(xOffset, yOffset);
 
@@ -143,23 +168,16 @@ public class TabViewerController extends AnchorPane implements Initializable {
       @Override
       public void handle(MouseEvent e) {
         final Tooltip tooltip = new Tooltip();
-        tooltip.setText("\nYour password must be\n" + "at least 8 characters in length\n");
+        tooltip.setText("a note!");
         l.setTooltip(tooltip);
       }
     });
 
     labelCache.add(l);
 
-
     anchorPane.getChildren().addAll(r, l);
   }
-
-  /**
-   * Gets the x offset (in pixels) from an onset
-   * 
-   * @param onset
-   * @return
-   */
+  
   public int xOffset(double onset) {
     // Left margin
     int shift = 0;
