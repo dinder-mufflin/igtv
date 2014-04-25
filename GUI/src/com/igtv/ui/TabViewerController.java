@@ -85,6 +85,8 @@ public class TabViewerController extends AnchorPane implements Initializable {
       drawFrame(curr);
     }
     
+    drawMeasureLines();
+    
     lnMarker =  drawMarker();
 
     // Setup click event
@@ -105,7 +107,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   private void drawFrame(Frame frame) {
     int xOffset = xOffset(frame.getOnsetInTicks());
-
+    
     Integer[] notes = frame.guitarStringFrets;
     
     for (int i = 0; i < notes.length; i++) {
@@ -116,9 +118,6 @@ public class TabViewerController extends AnchorPane implements Initializable {
         drawNote(xOffset, yOffset, notes[i], frame.durations[i]);
       }
     }
-
-    //drawLines();
-    //drawMeasureLines(tempo);
   }
 
   /**
@@ -160,10 +159,21 @@ public class TabViewerController extends AnchorPane implements Initializable {
   }
   
   /**
-   * Draws vertical lines representing measures
+   * Draws vertical lines to represent measures in standard 4/4 time
+   * 
+   * 
    */
-  private void drawMeasureLines(int tempo) {
-
+  public void drawMeasureLines() {
+    System.out.println(tabs.getMeasure());
+    Line l;
+    int measureLine = tabs.getMeasure();
+    //int measureLine = (int) (boxWidth / measureInTicks);
+    int tempMeasureLine = 0;
+    for(int i = 0; i < boxWidth; i++){
+      l = new Line(tempMeasureLine, 0, tempMeasureLine, boxHeight);
+      anchorPane.getChildren().add(l);
+      tempMeasureLine += measureLine;
+    }
   }
   
   /**

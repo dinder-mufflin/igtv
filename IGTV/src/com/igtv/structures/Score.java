@@ -33,12 +33,14 @@ public class Score {
   private ArrayList<Note> notesList;
 
   private NotesInMidi[] notes1D;
+  
+  private int tempo;
 
   private Sequence seq;
 
   public Score(Sequence seq) {
     this.seq = seq;
-
+    
     try {
       PianoRoll roll = PianoRollViewParser.parse(seq);
       NotesInMidi[] notes = roll.getNotes();
@@ -46,6 +48,7 @@ public class Score {
       this.notes = noteArray;
       this.notes1D = notes;
       this.notesList = getNotes();
+      //this.tempo = getRes();
       // PicCreator.generatePicture(this.notesList);
     } catch (Exception e) {
       System.out.println("Problem!");
@@ -120,5 +123,15 @@ public class Score {
       output.add(note);
     }
     return output;
+  }
+  
+  /**
+   * Gets the resolution
+   * 
+   */
+  public int getRes() {
+    int timeRes = seq.getResolution();
+    //System.out.println(timeRes);
+    return timeRes;
   }
 }
