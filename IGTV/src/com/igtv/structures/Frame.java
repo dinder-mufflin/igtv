@@ -12,6 +12,7 @@ public class Frame {
 
   // Assign one note to each string (when needed)
   public Integer[] guitarStringFrets = new Integer[6];
+  public Long[] durations = new Long[6];
 
   HashSet<Note> notes = new HashSet<Note>();
 
