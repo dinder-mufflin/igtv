@@ -80,7 +80,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
       drawFrame(curr);
     }
 
-    //Setup click event
+    // Setup click event
     anchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
@@ -111,17 +111,17 @@ public class TabViewerController extends AnchorPane implements Initializable {
     }
     drawLines();
   }
-  
+
   private void drawLines() {
-    for(int i=1; i<6; i++) {
-      double height = (boxHeight/6)*i;
+    for (int i = 1; i < 6; i++) {
+      double height = (boxHeight / 6) * i;
       Line l = new Line(0, height, anchorPane.getWidth(), height);
       l.setFill(Color.BLACK);
       anchorPane.getChildren().add(l);
     }
   }
 
-  //For disposal purposes
+  // For disposal purposes
   public static ArrayList<Label> labelCache = new ArrayList<Label>();
 
   /**
@@ -138,21 +138,18 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
     final Label l = new Label("" + fret);
     l.relocate(xOffset, yOffset);
-    
+
     l.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
         final Tooltip tooltip = new Tooltip();
-        tooltip.setText(
-            "\nYour password must be\n" +
-            "at least 8 characters in length\n"
-        );
+        tooltip.setText("\nYour password must be\n" + "at least 8 characters in length\n");
         l.setTooltip(tooltip);
       }
     });
-    
+
     labelCache.add(l);
-    
+
 
     anchorPane.getChildren().addAll(r, l);
   }
