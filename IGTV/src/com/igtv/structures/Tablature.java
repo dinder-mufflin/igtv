@@ -14,7 +14,7 @@ public class Tablature {
   private LinkedList<Frame> frames;
 
   private String title;
-  
+
   private Score score;
 
   public String getTitle() {
@@ -37,7 +37,7 @@ public class Tablature {
   public LinkedList<Frame> getFrames() {
     return frames;
   }
-  
+
   public Score getScore() {
     return score;
   }
