@@ -33,6 +33,7 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class TabViewerController extends AnchorPane implements Initializable {
@@ -82,6 +83,8 @@ public class TabViewerController extends AnchorPane implements Initializable {
       Frame curr = i.next();
       drawFrame(curr);
     }
+    
+    lnMarker =  drawMarker();
 
     // Setup click event
     anchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
@@ -114,15 +117,27 @@ public class TabViewerController extends AnchorPane implements Initializable {
     }
 
     drawLines();
+    //drawMeasureLines(tempo);
   }
 
+  /**
+   * Draws horizontal lines to divide strings
+   */
+  
   private void drawLines() {
     for (int i = 0; i < 6; i++) {
       double height = (boxHeight / 6) * i;
       Line l = new Line(0, height, anchorPane.getWidth(), height);
-      l.setFill(Color.BLACK);
+      l.setStroke(Color.BLACK);
       anchorPane.getChildren().add(l);
     }
+  }
+  
+  /**
+   * Draws vertical lines representing measures
+   */
+  private void drawMeasureLines(int tempo) {
+
   }
   
   /**
@@ -145,6 +160,17 @@ public class TabViewerController extends AnchorPane implements Initializable {
         anchorPane.getChildren().add(r);
     }
   }
+  
+  /**
+   *Required to manually draw the line marker on-top of all other elements in pane 
+   * 
+   */
+  private Line drawMarker() {
+    Line l = new Line(0, 0, 0, boxHeight);
+    l.setStroke(Color.CRIMSON);
+    anchorPane.getChildren().add(l);
+    return l;
+  }
 
   // For disposal purposes
   public static ArrayList<Label> labelCache = new ArrayList<Label>();
@@ -162,6 +188,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
     r.relocate(xOffset, yOffset);
     
     final Label l = new Label("" + fret);
+    l.setFont(Font.font("Courier", 32));
     l.relocate(xOffset, yOffset);
 
     l.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
