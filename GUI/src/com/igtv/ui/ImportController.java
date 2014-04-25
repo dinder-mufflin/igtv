@@ -89,7 +89,7 @@ public class ImportController extends AnchorPane implements Initializable {
       ObservableList<TrackTableItem> tracks = FXCollections.observableArrayList();
 
       // Add full score
-      tracks.add(new TrackTableItem(0, "All", importedScore));
+      tracks.add(new TrackTableItem(0, "All Tracks", importedScore));
 
       // Add individual tracks
       for (int i = 1; i < importedScore.numberOfTracks(); i++) {
@@ -129,8 +129,18 @@ public class ImportController extends AnchorPane implements Initializable {
   }
 
   public void onTrackSelected(Event e) {
-    btnPreview.setDisable(false);
-    btnTrackSubmit.setDisable(false);
+	if (tblTracks.getSelectionModel().getSelectedItem().getNumber()==0) {
+		btnPreview.setOpacity(1);
+		btnTrackSubmit.setOpacity(.5);
+		btnPreview.setDisable(false);
+		btnTrackSubmit.setDisable(true);
+	}
+	else {
+		btnPreview.setOpacity(1);
+		btnTrackSubmit.setOpacity(1);
+		btnPreview.setDisable(false);
+		btnTrackSubmit.setDisable(false);
+	}
   }
 
   public void onPreviewRequested(ActionEvent e) {
