@@ -48,6 +48,8 @@ public class ImportController extends AnchorPane implements Initializable {
   private TableColumn colInstrument;
 
   private Main application;
+  
+  private String fileName;
 
   public void setApp(Main application) {
     this.application = application;
@@ -73,6 +75,7 @@ public class ImportController extends AnchorPane implements Initializable {
     } else {
       // User chose successfully
       txtImport.setText(file.getName());
+      fileName = file.getName();
       btnImport.setDisable(true);
 
       tabTrack.setDisable(false);
@@ -163,7 +166,8 @@ public class ImportController extends AnchorPane implements Initializable {
 
     Score score = item.getScore();
     Tablature t = new Tablature(score);
-    t.setTitle("Hotel California"); // TODO: Replace with file's title
+    String[] noExtFileName = fileName.split("\\.");
+    t.setTitle(noExtFileName[0]); 
 
     application.gotoTabViewer(t);
   }
