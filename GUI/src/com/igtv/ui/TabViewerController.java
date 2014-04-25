@@ -75,7 +75,8 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
     LinkedList<Frame> frames = tabs.getFrames();
 
-    drawStringFiller();
+    //drawStringFiller();
+    drawTablatureLines();
     
     Iterator<Frame> i = frames.iterator();
     while (i.hasNext()) {
@@ -116,14 +117,14 @@ public class TabViewerController extends AnchorPane implements Initializable {
       }
     }
 
-    drawLines();
+    //drawLines();
     //drawMeasureLines(tempo);
   }
 
   /**
    * Draws horizontal lines to divide strings
    */
-  
+/*  
   private void drawLines() {
     for (int i = 0; i < 6; i++) {
       double height = (boxHeight / 6) * i;
@@ -131,6 +132,31 @@ public class TabViewerController extends AnchorPane implements Initializable {
       l.setStroke(Color.BLACK);
       anchorPane.getChildren().add(l);
     }
+  }
+*/  
+  /**
+   * Draws horizontal tab lines, populating from the middle onto {@link #anchorPane}
+   * 
+   * 
+   */
+  private void drawTablatureLines() {
+    int i, j, k;
+    int tabRatioY = (int) (boxHeight / 6);
+    int tabBorderX = (int) (boxWidth);
+    int centerY = (int) (boxHeight / 2);
+    
+    Line l1;
+    Line l2;
+    for(i = 0, j = centerY-tabRatioY/2, k = centerY+tabRatioY/2;
+        i < 6 / 2;
+        i++, j-=tabRatioY, k += tabRatioY) {
+        l1 = new Line(tabBorderX, j, boxWidth-tabBorderX, j);
+        l2 = new Line(tabBorderX, k, boxWidth-tabBorderX, k);
+        l1.setStroke(Color.BLACK);
+        l2.setStroke(Color.BLACK);
+        anchorPane.getChildren().addAll(l1, l2);
+    }
+    
   }
   
   /**
@@ -141,7 +167,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
   }
   
   /**
-   * Fills in alternating colors for each string
+   * Fills in alternating colors for each string onto {@link #anchorPane}
    * 
    */
   private void drawStringFiller() {
@@ -188,7 +214,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
     r.relocate(xOffset, yOffset);
     
     final Label l = new Label("" + fret);
-    l.setFont(Font.font("Courier", 32));
+    l.setFont(Font.font("Arial", 28));
     l.relocate(xOffset, yOffset);
 
     l.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
@@ -221,7 +247,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   public double yOffset(int guitarString) {
     // Top margin
-    double shift = 0;
+    double shift = -30;
     double pixelsBetweenStrings = boxHeight / 6;
 
     return shift + pixelsBetweenStrings * guitarString;
