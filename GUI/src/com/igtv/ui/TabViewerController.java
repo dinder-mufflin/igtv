@@ -1,5 +1,6 @@
 package com.igtv.ui;
 
+import java.awt.Font;
 import java.net.URL;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -134,10 +135,14 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   private void drawNote(double xOffset, double yOffset, int fret, long duration) {
     Rectangle r = new Rectangle(duration, boxHeight / 6, Color.LIGHTBLUE);
+    r.setArcWidth(25);
+    r.setArcHeight(25);
+    r.setStrokeWidth(1.0);
+    r.setStroke(Color.BLACK);
     r.relocate(xOffset, yOffset);
 
     final Label l = new Label("" + fret);
-    l.relocate(xOffset, yOffset);
+    l.relocate(xOffset+10, yOffset+(boxHeight/12)-6);
 
     l.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
       @Override
