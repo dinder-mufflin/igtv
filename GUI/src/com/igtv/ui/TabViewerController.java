@@ -142,7 +142,12 @@ public class TabViewerController extends AnchorPane implements Initializable {
     r.relocate(xOffset, yOffset);
 
     final Label l = new Label("" + fret);
-    l.relocate(xOffset+10, yOffset+(boxHeight/12)-6);
+    
+    // for centering and displaying the fret number 
+    double labelXValue = xOffset + 10.0;
+    double labelYValue = yOffset+(boxHeight/12)-6;
+    
+    l.relocate(labelXValue, labelYValue);
 
     l.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
       @Override
