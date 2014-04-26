@@ -48,6 +48,8 @@ public class ImportController extends AnchorPane implements Initializable {
   private TableColumn colInstrument;
 
   private Main application;
+  
+  private String fileName;
 
   public void setApp(Main application) {
     this.application = application;
@@ -73,6 +75,7 @@ public class ImportController extends AnchorPane implements Initializable {
     } else {
       // User chose successfully
       txtImport.setText(file.getName());
+      fileName = file.getName();
       btnImport.setDisable(true);
 
       tabTrack.setDisable(false);
@@ -86,7 +89,7 @@ public class ImportController extends AnchorPane implements Initializable {
       ObservableList<TrackTableItem> tracks = FXCollections.observableArrayList();
 
       // Add full score
-      tracks.add(new TrackTableItem(0, "All", importedScore));
+      tracks.add(new TrackTableItem(0, "All Tracks", importedScore));
 
       // Add individual tracks
       for (int i = 1; i < importedScore.numberOfTracks(); i++) {
@@ -126,8 +129,18 @@ public class ImportController extends AnchorPane implements Initializable {
   }
 
   public void onTrackSelected(Event e) {
-    btnPreview.setDisable(false);
-    btnTrackSubmit.setDisable(false);
+	if (tblTracks.getSelectionModel().getSelectedItem().getNumber()==0) {
+		btnPreview.setOpacity(1);
+		btnTrackSubmit.setOpacity(.5);
+		btnPreview.setDisable(false);
+		btnTrackSubmit.setDisable(true);
+	}
+	else {
+		btnPreview.setOpacity(1);
+		btnTrackSubmit.setOpacity(1);
+		btnPreview.setDisable(false);
+		btnTrackSubmit.setDisable(false);
+	}
   }
 
   public void onPreviewRequested(ActionEvent e) {
@@ -163,7 +176,8 @@ public class ImportController extends AnchorPane implements Initializable {
 
     Score score = item.getScore();
     Tablature t = new Tablature(score);
-    t.setTitle("Hotel California"); // TODO: Replace with file's title
+    String[] noExtFileName = fileName.split("\\.");
+    t.setTitle(noExtFileName[0]); 
 
     application.gotoTabViewer(t);
   }
