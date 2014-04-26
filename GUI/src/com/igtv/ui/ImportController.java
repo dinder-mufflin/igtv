@@ -153,9 +153,6 @@ public class ImportController extends AnchorPane implements Initializable {
     } else {
       TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
-      Patch[] p = item.getScore().getSequence().getPatchList();
-      System.out.println();
-      
       Score score = item.getScore();
 
       application.player.load(score.getSequence());
