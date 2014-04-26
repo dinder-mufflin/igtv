@@ -10,10 +10,19 @@ import java.util.Iterator;
  */
 public class Frame {
 
+  /**
+   * Onset of all notes appearing at this frame
+   */
   private double onsetInTicks;
 
-  // Assign one note to each string (when needed)
+  /**
+   * Frets corresponding to pitch of each note (indexes correspond to guitar strings)
+   */
   public Integer[] guitarStringFrets = new Integer[6];
+
+  /**
+   * Duration of each note (indexes correspond to guitar strings)
+   */
   public Long[] durations = new Long[6];
 
   /**
@@ -21,12 +30,17 @@ public class Frame {
    */
   HashSet<Note> notes = new HashSet<Note>();
 
+  /**
+   * Constructor. Creates using a given onset (measured in ticks).
+   * 
+   * @param currentOnset
+   */
   public Frame(double currentOnset) {
     this.onsetInTicks = currentOnset;
   }
 
   /**
-   * Adds a note to the frame
+   * Adds a note to the frame.
    * 
    * @param n
    */
@@ -35,7 +49,7 @@ public class Frame {
   }
 
   /**
-   * Returns all notes in the frame
+   * Returns all notes in the frame.
    * 
    * @return
    */
@@ -44,19 +58,11 @@ public class Frame {
   }
 
   /**
+   * Returns the onset (in ticks) where all notes in the frame begin.
    * 
    * @return The onset where the frame begins
    */
   public double getOnsetInTicks() {
     return onsetInTicks;
-  }
-
-  public void print() {
-    System.out.println("\nFRAME: " + onsetInTicks);
-    Iterator<Note> i = notes.iterator();
-    while (i.hasNext()) {
-      Note curr = i.next();
-      System.out.println("\t" + curr.getPitch());
-    }
   }
 }
