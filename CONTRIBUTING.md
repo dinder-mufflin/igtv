@@ -3,7 +3,7 @@ How to Contribute:
 1. Make changes in your own branch
 2. Merge any latest updates from `master`
   * `git merge origin/master`
-3. Make sure your code has been [formatted properly](#Style)
+3. Make sure your code has been [formatted properly](#style)
 4. File a pull request through GitHub
 
 
