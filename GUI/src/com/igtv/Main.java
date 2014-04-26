@@ -9,11 +9,14 @@ import com.igtv.ui.ImportController;
 import com.igtv.ui.TabViewerController;
 
 import javafx.application.Application;
+import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -47,6 +50,15 @@ public class Main extends Application {
       gotoImport();
 
       primaryStage.show();
+      primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+
+          @Override
+          public void handle(WindowEvent t) {
+        	  Platform.exit();
+              System.exit(0);
+          }
+
+      });
     } catch (Exception e) {
       e.printStackTrace();
     }

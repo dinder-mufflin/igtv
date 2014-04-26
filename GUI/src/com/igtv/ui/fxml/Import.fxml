@@ -34,7 +34,7 @@
     <TableColumn fx:id="colInstrument" editable="false" prefWidth="95.0" sortable="false" text="Instrument" />
   </columns>
 </TableView><VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" style="-fx-alignment: center;">
-<children><Button fx:id="btnPreview" mnemonicParsing="false" onAction="#onPreviewRequested" text="Preview" /><Button fx:id="btnTrackSubmit" mnemonicParsing="false" onAction="#onTrackSubmit" text="Continue" />
+<children><Button fx:id="btnPreview" mnemonicParsing="false" onAction="#onPreviewRequested" text="Preview" /><Button fx:id="btnTrackSubmit" mnemonicParsing="false" onAction="#onTrackSubmit" text="View Tablature" />
 </children></VBox>
 </children></HBox>
 </children></AnchorPane>

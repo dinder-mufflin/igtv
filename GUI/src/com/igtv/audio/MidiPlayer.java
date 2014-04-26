@@ -7,79 +7,103 @@ import javax.sound.midi.Sequence;
 import javax.sound.midi.Sequencer;
 
 /**
- * Plays and stops any
+ * Acts as a basic driver for playing MIDI audio for the user. Relies on Java's {@link Sequence}
+ * class for play/stop functionality.
  */
 public class MidiPlayer {
 
   private Sequencer sequencer;
   private boolean isPlaying = false;
 
-  public boolean load(Sequence seq) {
+  /**
+   * Loads a MIDI sequence into the player using {@link Sequencer#setSequence(Sequence)}
+   * 
+   * @param sequence
+   * @return
+   */
+  public boolean load(Sequence sequence) {
+    // Validate that the input is not null
+    if (sequence == null) {
+      return false;
+    }
 
+    // Stop any existing playback
     if (isPlaying()) {
       stop();
     }
 
+    // Attempt to load media using Java's MidiSystem class
     try {
       // Create a sequencer for the sequence
       sequencer = MidiSystem.getSequencer();
       sequencer.open();
-      sequencer.setSequence(seq);
-
-      return true;
-
+      sequencer.setSequence(sequence);
     } catch (InvalidMidiDataException e) {
+      // Load failed
       e.printStackTrace();
+      return false;
     } catch (MidiUnavailableException e) {
+      // Load failed
       e.printStackTrace();
+      return false;
     }
 
-
-    return false;
+    // Load was successful. Return true.
+    return true;
   }
 
   /**
-   * Plays the specified midi file beginning at a given onset
+   * Plays the specified MIDI file beginning at a given onset
    * 
-   * @pre onset <= maxOnset()
-   * @pre !isPlaying()
-   * @post isPlaying()
-   * @param onset Onset where audio should begin playing.
-   * @return Whether or not the play command was successfully executed
+   * @return Boolean representing whether or not the play command was successfully executed
    */
   public boolean play() {
-
-    if (sequencer == null) {
+    // Ensure that load() has already been called
+    if (isLoaded()) {
+      // Load was not called before calling play
       return false;
-    } else {
-
-      // Start playing
-      sequencer.start();
-      isPlaying = true;
-      return true;
     }
+
+    // Start playing
+    sequencer.start();
+    isPlaying = true;
+    return true;
   }
 
   /**
-   * Seeks to a specified onset
+   * Returns whether or not {@link #load(Sequence)} was not already called.
    * 
-   * @param onsetInTicks
+   * This is found by checking if the {@link #sequencer} object is null or not.
+   * 
+   * @return Boolean representing whether or not {@link #load(Sequence)} was not already called.
    */
-  public void seek(long onsetInTicks) {
-    if (sequencer == null) {
-      // Do nothing
-    } else {
-      sequencer.setTickPosition(onsetInTicks);
+  public boolean isLoaded() {
+    return (sequencer != null);
+  }
+
+  /**
+   * Seeks to a specified onset (in MIDI ticks).
+   * 
+   * This may be called during playback or while stopped. The only requirement is that a track is
+   * required to have been loaded before being called.
+   * 
+   * @param onsetInTicks The desired onset (measured in MIDI ticks)
+   * @return Boolean representing whether the seek was successful.
+   */
+  public boolean seek(long onsetInTicks) {
+    if (!isLoaded()) {
+      return false;
     }
+
+    sequencer.setTickPosition(onsetInTicks);
+    return true;
   }
 
   /**
    * Stops any audio that is playing.
    * 
-   * @pre isPlaying()
-   * @post !isPlaying()
    * @param onset Onset where audio should begin playing.
-   * @return Whether or not the play command was successfully executed
+   * @return Boolean representing whether or not the play command was successfully executed
    */
   public void stop() {
     if (isPlaying()) {
@@ -87,12 +111,20 @@ public class MidiPlayer {
       isPlaying = false;
     }
   }
+<<<<<<< HEAD
   
   /**
    * gets the current tick position of sequencer
    * 
    * 
    * @return long current tick position of sequencer
+=======
+
+  /**
+   * Returns the position (in ticks) of playback. Helpful for implementing pause functionality.
+   * 
+   * @return The position (measured in ticks) of playback
+>>>>>>> origin/master
    */
   public long getTickPosition() {
     return sequencer.getTickPosition();
@@ -109,8 +141,13 @@ public class MidiPlayer {
   }
 
   /**
+   * Returns whether or not MIDI is being played by this object.
    * 
+<<<<<<< HEAD
    * @return boolean value indicating if the player is actively playing a score
+=======
+   * @return Boolean representing whether or not MIDI is being played by this object.
+>>>>>>> origin/master
    */
   public boolean isPlaying() {
     return isPlaying;
