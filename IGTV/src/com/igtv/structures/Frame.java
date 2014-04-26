@@ -4,7 +4,9 @@ import java.util.HashSet;
 import java.util.Iterator;
 
 /**
- * Represents all notes beginning at one point in time.
+ * Representation as a frame (as outlined in the dictionary of terms) Contains a listing of all
+ * notes that occur at a particular onset. Each note will correspond to a single frame. This class
+ * is used for construction of the Tablature object.
  */
 public class Frame {
 
@@ -14,6 +16,9 @@ public class Frame {
   public Integer[] guitarStringFrets = new Integer[6];
   public Long[] durations = new Long[6];
 
+  /**
+   * All notes occurring at the onset in the onset
+   */
   HashSet<Note> notes = new HashSet<Note>();
 
   public Frame(double currentOnset) {
@@ -38,6 +43,10 @@ public class Frame {
     return notes;
   }
 
+  /**
+   * 
+   * @return The onset where the frame begins
+   */
   public double getOnsetInTicks() {
     return onsetInTicks;
   }
