@@ -6,48 +6,73 @@ import java.util.LinkedList;
 import com.igtv.pic.util.PicCreator;
 
 /**
- * 
- *
+ * Represents a full guitar tablature.
  */
 public class Tablature {
 
+  /**
+   * Notes compartmentalized into frames (ordered by onset)
+   */
   private LinkedList<Frame> frames;
 
+  /**
+   * Song title for the tablature
+   */
   private String title;
 
+  /**
+   * Original score the tablature is made from
+   */
   private Score score;
 
+  /**
+   * Returns the song title
+   * 
+   * @return The tablature's song title
+   */
   public String getTitle() {
     return title;
   }
 
+  /**
+   * Assigns a new song title to the tablature
+   * 
+   * @param title Song title to be assigned
+   */
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
+   * Constructor. Creates a Tablature object and parses notes into individual frames.
    * 
-   * @param score
+   * @param score Score of notes used to generate the assignment
    */
   public Tablature(Score score) {
     this.score = score;
     parse();
   }
 
+  /**
+   * Returns all frames in the score
+   * 
+   * @return
+   */
   public LinkedList<Frame> getFrames() {
     return frames;
   }
 
+  /**
+   * Returns the original score given in the constructor
+   * 
+   * @return
+   */
   public Score getScore() {
     return score;
   }
 
-  /**
-   * Parses a {@Score}
-   * 
-   * @param score
-   */
-  private void parse() {
+  // TODO: Add documentation here
+  protected void parse() {
     // Notes for parsing
     ArrayList<Note> notes = score.getNotes();
 
@@ -76,7 +101,6 @@ public class Tablature {
         currFrame.guitarStringFrets[note.getStringNo()] = note.getFret();
       }
     }
-
     this.frames = frames;
   }
 }
