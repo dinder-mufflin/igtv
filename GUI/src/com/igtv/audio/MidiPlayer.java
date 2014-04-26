@@ -88,13 +88,29 @@ public class MidiPlayer {
     }
   }
   
+  /**
+   * gets the current tick position of sequencer
+   * 
+   * 
+   * @return long current tick position of sequencer
+   */
   public long getTickPosition() {
     return sequencer.getTickPosition();
+  }
+  
+  /**
+   * gets the length of a sequencer in MIDI ticks
+   * 
+   * @return long length of sequencer in MIDI ticks
+   */
+  
+  public long getTotalTickLength() {
+    return sequencer.getTickLength();
   }
 
   /**
    * 
-   * @return
+   * @return boolean value indicating if the player is actively playing a score
    */
   public boolean isPlaying() {
     return isPlaying;

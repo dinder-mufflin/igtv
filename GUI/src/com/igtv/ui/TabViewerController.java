@@ -119,20 +119,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
       }
     }
   }
-
-  /**
-   * Draws horizontal lines to divide strings
-   */
-/*  
-  private void drawLines() {
-    for (int i = 0; i < 6; i++) {
-      double height = (boxHeight / 6) * i;
-      Line l = new Line(0, height, anchorPane.getWidth(), height);
-      l.setStroke(Color.BLACK);
-      anchorPane.getChildren().add(l);
-    }
-  }
-*/  
+ 
   /**
    * Draws horizontal tab lines, populating from the middle onto {@link #anchorPane}
    * 
@@ -160,29 +147,28 @@ public class TabViewerController extends AnchorPane implements Initializable {
   
   /**
    * Draws vertical lines to represent measures in standard 4/4 time
-   * 
+   *  propagating from the middle of {@link #anchorPane}
    * 
    */
   public void drawMeasureLines() {
-    System.out.println(tabs.getMeasure());
     Line l;
+    Rectangle r;
     int measureLine = tabs.getMeasure();
-    //int measureLine = (int) (boxWidth / measureInTicks);
     int tempMeasureLine = 0;
     for(int i = 0; i < boxWidth; i++){
       l = new Line(tempMeasureLine, 0, tempMeasureLine, boxHeight);
-      anchorPane.getChildren().add(l);
+      anchorPane.getChildren().addAll(l);
       tempMeasureLine += measureLine;
     }
   }
   
   /**
-   * Fills in alternating colors for each string onto {@link #anchorPane}
+   * Fills in alternating colors at each string onto {@link #anchorPane}
    * 
    */
   private void drawStringFiller() {
     for(int i = 0; i <= 6; i++) {
-      double yOffset = yOffset(6 - i);
+      double yOffset = yOffset((6 - i));
       Rectangle r;
       int j = i % 2;
       if(j!=0){
