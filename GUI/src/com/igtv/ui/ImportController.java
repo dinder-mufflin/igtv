@@ -4,6 +4,8 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import javax.sound.midi.Patch;
+
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -48,7 +50,7 @@ public class ImportController extends AnchorPane implements Initializable {
   private TableColumn colInstrument;
 
   private Main application;
-  
+
   private String fileName;
 
   public void setApp(Main application) {
@@ -96,7 +98,8 @@ public class ImportController extends AnchorPane implements Initializable {
 
         Score currentTrack = importedScore.getTrack(i);
 
-        tracks.add(new TrackTableItem(i, "empty", currentTrack));
+        // Add instrument values here
+        tracks.add(new TrackTableItem(i, "TEST", currentTrack));
 
       }
 
@@ -129,18 +132,17 @@ public class ImportController extends AnchorPane implements Initializable {
   }
 
   public void onTrackSelected(Event e) {
-	if (tblTracks.getSelectionModel().getSelectedItem().getNumber()==0) {
-		btnPreview.setOpacity(1);
-		btnTrackSubmit.setOpacity(.5);
-		btnPreview.setDisable(false);
-		btnTrackSubmit.setDisable(true);
-	}
-	else {
-		btnPreview.setOpacity(1);
-		btnTrackSubmit.setOpacity(1);
-		btnPreview.setDisable(false);
-		btnTrackSubmit.setDisable(false);
-	}
+    if (tblTracks.getSelectionModel().getSelectedItem().getNumber() == 0) {
+      btnPreview.setOpacity(1);
+      btnTrackSubmit.setOpacity(.5);
+      btnPreview.setDisable(false);
+      btnTrackSubmit.setDisable(true);
+    } else {
+      btnPreview.setOpacity(1);
+      btnTrackSubmit.setOpacity(1);
+      btnPreview.setDisable(false);
+      btnTrackSubmit.setDisable(false);
+    }
   }
 
   public void onPreviewRequested(ActionEvent e) {
@@ -151,6 +153,9 @@ public class ImportController extends AnchorPane implements Initializable {
     } else {
       TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
 
+      Patch[] p = item.getScore().getSequence().getPatchList();
+      System.out.println();
+      
       Score score = item.getScore();
 
       application.player.load(score.getSequence());
@@ -177,7 +182,7 @@ public class ImportController extends AnchorPane implements Initializable {
     Score score = item.getScore();
     Tablature t = new Tablature(score);
     String[] noExtFileName = fileName.split("\\.");
-    t.setTitle(noExtFileName[0]); 
+    t.setTitle(noExtFileName[0]);
 
     application.gotoTabViewer(t);
   }
