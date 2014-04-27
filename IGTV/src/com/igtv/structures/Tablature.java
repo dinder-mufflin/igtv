@@ -6,73 +6,48 @@ import java.util.LinkedList;
 import com.igtv.pic.util.PicCreator;
 
 /**
- * Represents a full guitar tablature.
+ * 
+ *
  */
 public class Tablature {
 
-  /**
-   * Notes compartmentalized into frames (ordered by onset)
-   */
   private LinkedList<Frame> frames;
 
-  /**
-   * Song title for the tablature
-   */
   private String title;
 
-  /**
-   * Original score the tablature is made from
-   */
   private Score score;
 
-  /**
-   * Returns the song title
-   * 
-   * @return The tablature's song title
-   */
   public String getTitle() {
     return title;
   }
 
-  /**
-   * Assigns a new song title to the tablature
-   * 
-   * @param title Song title to be assigned
-   */
   public void setTitle(String title) {
     this.title = title;
   }
 
   /**
-   * Constructor. Creates a Tablature object and parses notes into individual frames.
    * 
-   * @param score Score of notes used to generate the assignment
+   * @param score
    */
   public Tablature(Score score) {
     this.score = score;
     parse();
   }
 
-  /**
-   * Returns all frames in the score
-   * 
-   * @return
-   */
   public LinkedList<Frame> getFrames() {
     return frames;
   }
 
-  /**
-   * Returns the original score given in the constructor
-   * 
-   * @return
-   */
   public Score getScore() {
     return score;
   }
 
-  // TODO: Add documentation here
-  protected void parse() {
+  /**
+   * Parses a {@Score}
+   * 
+   * @param score
+   */
+  private void parse() {
     // Notes for parsing
     ArrayList<Note> notes = score.getNotes();
 
@@ -101,6 +76,27 @@ public class Tablature {
         currFrame.guitarStringFrets[note.getStringNo()] = note.getFret();
       }
     }
+
     this.frames = frames;
   }
+  
+  /**
+   * Gets measures in ticks per quarter note. Assuming 4/4 time
+   * 
+   * @return measure
+   */
+  public int getMeasure() {
+    int  ticksPerQuarterNote = score.getTimingResolution();
+    int measure = ticksPerQuarterNote * 4;
+    return measure;
+  }
+
+  public void print() {
+
+    for (int i = 0; i < 30; i++) {
+      Frame curr = frames.get(i);
+      //curr.print();
+    }
+  }
+
 }
