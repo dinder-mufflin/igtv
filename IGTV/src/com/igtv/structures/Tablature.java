@@ -10,6 +10,10 @@ import com.igtv.pic.util.PicCreator;
  *
  */
 public class Tablature {
+  
+  /**
+   * Notes compartmentalized into frames (ordered by onset)
+   */
 
   private LinkedList<Frame> frames;
 

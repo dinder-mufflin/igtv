@@ -13,23 +13,23 @@
 <children><Button fx:id="btnPlay" mnemonicParsing="false" onAction="#onPlayClicked" style="-fx-alignment: center;" text="Play" />
 </children></HBox>
 <HBox>
-<children><VBox alignment="CENTER" prefHeight="200.0" prefWidth="50.0" HBox.hgrow="NEVER">
-<children><Label text="E">
+<children><VBox fx:id="vPane" alignment="CENTER" prefHeight="205.0" prefWidth="50.0" HBox.hgrow="NEVER">
+<children><Label fx:id="lblEHi" text="E" VBox.vgrow="ALWAYS">
 <font>
 <Font size="22.0" />
-</font></Label><Label text="B">
+</font></Label><Label fx:id="lblB" text="B" VBox.vgrow="ALWAYS">
 <font>
 <Font size="22.0" />
-</font></Label><Label text="G">
+</font></Label><Label fx:id="lblG" text="G" VBox.vgrow="ALWAYS">
 <font>
 <Font size="22.0" />
-</font></Label><Label text="D">
+</font></Label><Label fx:id="lblD" text="D" VBox.vgrow="ALWAYS">
 <font>
 <Font size="22.0" />
-</font></Label><Label text="A">
+</font></Label><Label fx:id="lblA" text="A" VBox.vgrow="ALWAYS">
 <font>
 <Font size="22.0" />
-</font></Label><Label text="E">
+</font></Label><Label fx:id="lblELo" text="E" VBox.vgrow="ALWAYS">
 <font>
 <Font size="22.0" />
 </font></Label><Label />

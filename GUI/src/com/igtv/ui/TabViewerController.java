@@ -29,6 +29,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
@@ -46,8 +47,22 @@ public class TabViewerController extends AnchorPane implements Initializable {
   @FXML
   private Pane anchorPane;
   @FXML
-  private Label lblTitle;
-
+  private Label lblTitle; 
+  @FXML
+  private Label lblEHi;
+  @FXML
+  private Label lblB;
+  @FXML
+  private Label lblG;
+  @FXML
+  private Label lblD;
+  @FXML
+  private Label lblA;
+  @FXML
+  private Label lblELo;
+  @FXML
+  private VBox vPane;
+  
   private Tablature tabs;
 
   private double boxHeight, boxWidth;
