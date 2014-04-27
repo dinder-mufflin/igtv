@@ -207,7 +207,9 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * @param duration
    */
   private void drawNote(double xOffset, double yOffset, int fret, long duration) {
+
     Rectangle r = new Rectangle(duration, boxHeight / 6, noteColor(fret));
+
     r.setArcWidth(25);
     r.setArcHeight(25);
     r.setStrokeWidth(1.0);
@@ -216,16 +218,12 @@ public class TabViewerController extends AnchorPane implements Initializable {
     r.relocate(xOffset, yOffset);
     
     final Label l = new Label("" + fret);
-
-    l.relocate(xOffset, yOffset);
-
     
     // for centering and displaying the fret number 
     double labelXValue = xOffset + 10.0;
     double labelYValue = yOffset+(boxHeight/12)-6;
     
     l.relocate(labelXValue, labelYValue);
-
 
     l.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
       @Override
