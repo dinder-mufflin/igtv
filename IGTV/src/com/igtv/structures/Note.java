@@ -11,12 +11,15 @@ public class Note implements Comparable<Note> {
   private int fret;
 
   /**
+   * Main Constructor
    * 
-   * @param onsetInTicks
-   * @param durationInTicks
-   * @param pitch
-   * @param channel
-   * @param track
+   * @param onsetInTicks When the notes starts
+   * @param durationInTicks How long the note is held for
+   * @param pitch Pitch of the note
+   * @param channel MIDI channel it is played on
+   * @param track MIDI track it is played on
+   * @param string The physical guitar string to be played (set to -1 initially)
+   * @param fret The physical fret of the note that will be played (set to -1 initially)
    */
   Note(long onsetInTicks, long durationInTicks, int pitch, int channel, int track, int string,
       int fret) {
@@ -54,6 +57,9 @@ public class Note implements Comparable<Note> {
    */
   private int track;
 
+
+  // /// GETTERS AND SETTERS /////
+
   public long getOnsetInTicks() {
     return onsetInTicks;
   }
@@ -88,52 +94,54 @@ public class Note implements Comparable<Note> {
 
   public int getTrack() {
     return track;
-	}
+  }
 
-	public void setTrack(int track) {
-		this.track = track;
-	}
+  public void setTrack(int track) {
+    this.track = track;
+  }
 
-	public void setOnsetInTicks(long onsetInTicks) {
-		this.onsetInTicks = onsetInTicks;
-	}
+  public void setOnsetInTicks(long onsetInTicks) {
+    this.onsetInTicks = onsetInTicks;
+  }
 
-	public void setDurationInTicks(long durationInTicks) {
-		this.durationInTicks = durationInTicks;
-	}
+  public void setDurationInTicks(long durationInTicks) {
+    this.durationInTicks = durationInTicks;
+  }
 
-	public int getStringNo() {
-		return string;
-	}
+  public int getStringNo() {
+    return string;
+  }
 
-	public void setString(int string) {
-		this.string = string;
-	}
+  public void setString(int string) {
+    this.string = string;
+  }
 
-	public int getFret() {
-		return fret;
-	}
+  public int getFret() {
+    return fret;
+  }
 
-	public void setFret(int fret) {
-		this.fret = fret;
-	}
+  public void setFret(int fret) {
+    this.fret = fret;
+  }
 
-	@Override
-	public String toString() {
-		return "Note [string=" + string + ", fret=" + fret + ", onsetInTicks="
-				+ onsetInTicks + ", durationInTicks=" + durationInTicks
-				+ ", pitch=" + pitch + ", channel=" + channel + ", track="
-				+ track + "]";
-	}
-	
-	@Override
-	public int compareTo(Note note){
-		if (this.getPitch() < note.getPitch())
-            return -1;
-        else if (this.getPitch() == note.getPitch())
-            return 0;
-        else 
-            return 1;
-	}
+  @Override
+  public String toString() {
+    return "Note [string=" + string + ", fret=" + fret + ", onsetInTicks=" + onsetInTicks
+        + ", durationInTicks=" + durationInTicks + ", pitch=" + pitch + ", channel=" + channel
+        + ", track=" + track + "]";
+  }
+
+  /**
+   * Used with Collections.sort() function to sort by pitch when notes are stacked
+   */
+  @Override
+  public int compareTo(Note note) {
+    if (this.getPitch() < note.getPitch())
+      return -1;
+    else if (this.getPitch() == note.getPitch())
+      return 0;
+    else
+      return 1;
+  }
 
 }
