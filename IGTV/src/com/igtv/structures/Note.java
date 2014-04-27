@@ -18,8 +18,8 @@ public class Note implements Comparable<Note> {
    * @param channel
    * @param track
    */
-  Note(long onsetInTicks, long durationInTicks, int pitch, int channel, int track, int string,
-      int fret) {
+  public Note(long onsetInTicks, long durationInTicks, int pitch, int channel, int track,
+      int string, int fret) {
     this.onsetInTicks = onsetInTicks;
     this.durationInTicks = durationInTicks;
     this.pitch = pitch;
@@ -88,52 +88,51 @@ public class Note implements Comparable<Note> {
 
   public int getTrack() {
     return track;
-	}
+  }
 
-	public void setTrack(int track) {
-		this.track = track;
-	}
+  public void setTrack(int track) {
+    this.track = track;
+  }
 
-	public void setOnsetInTicks(long onsetInTicks) {
-		this.onsetInTicks = onsetInTicks;
-	}
+  public void setOnsetInTicks(long onsetInTicks) {
+    this.onsetInTicks = onsetInTicks;
+  }
 
-	public void setDurationInTicks(long durationInTicks) {
-		this.durationInTicks = durationInTicks;
-	}
+  public void setDurationInTicks(long durationInTicks) {
+    this.durationInTicks = durationInTicks;
+  }
 
-	public int getStringNo() {
-		return string;
-	}
+  public int getStringNo() {
+    return string;
+  }
 
-	public void setString(int string) {
-		this.string = string;
-	}
+  public void setString(int string) {
+    this.string = string;
+  }
 
-	public int getFret() {
-		return fret;
-	}
+  public int getFret() {
+    return fret;
+  }
 
-	public void setFret(int fret) {
-		this.fret = fret;
-	}
+  public void setFret(int fret) {
+    this.fret = fret;
+  }
 
-	@Override
-	public String toString() {
-		return "Note [string=" + string + ", fret=" + fret + ", onsetInTicks="
-				+ onsetInTicks + ", durationInTicks=" + durationInTicks
-				+ ", pitch=" + pitch + ", channel=" + channel + ", track="
-				+ track + "]";
-	}
-	
-	@Override
-	public int compareTo(Note note){
-		if (this.getPitch() < note.getPitch())
-            return -1;
-        else if (this.getPitch() == note.getPitch())
-            return 0;
-        else 
-            return 1;
-	}
+  @Override
+  public String toString() {
+    return "Note [string=" + string + ", fret=" + fret + ", onsetInTicks=" + onsetInTicks
+        + ", durationInTicks=" + durationInTicks + ", pitch=" + pitch + ", channel=" + channel
+        + ", track=" + track + "]";
+  }
+
+  @Override
+  public int compareTo(Note note) {
+    if (this.getPitch() < note.getPitch())
+      return -1;
+    else if (this.getPitch() == note.getPitch())
+      return 0;
+    else
+      return 1;
+  }
 
 }
