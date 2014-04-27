@@ -79,14 +79,14 @@ public class Tablature {
 
     this.frames = frames;
   }
-  
+
   /**
    * Gets measures in ticks per quarter note. Assuming 4/4 time
    * 
    * @return measure
    */
   public int getMeasure() {
-    int  ticksPerQuarterNote = score.getTimingResolution();
+    int ticksPerQuarterNote = score.getTimingResolution();
     int measure = ticksPerQuarterNote * 4;
     return measure;
   }
@@ -95,7 +95,7 @@ public class Tablature {
 
     for (int i = 0; i < 30; i++) {
       Frame curr = frames.get(i);
-      //curr.print();
+      // curr.print();
     }
   }
 
