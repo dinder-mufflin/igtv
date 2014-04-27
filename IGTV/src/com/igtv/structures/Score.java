@@ -6,8 +6,6 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
-import com.igtv.pic.util.PicCreator;
-
 import edu.columbia.ee.csmit.MidiKaraoke.read.NotesInMidi;
 import edu.columbia.ee.csmit.MidiKaraoke.read.PianoRoll;
 import edu.columbia.ee.csmit.MidiKaraoke.read.PianoRollViewParser;

@@ -112,28 +112,28 @@ public class MidiPlayer {
     }
   }
 
-  
+
   /**
    * gets the current tick position of sequencer
    * 
    * 
    * @return long current tick position of sequencer
-
-  /**
-   * Returns the position (in ticks) of playback. Helpful for implementing pause functionality.
+   * 
+   *         /** Returns the position (in ticks) of playback. Helpful for implementing pause
+   *         functionality.
    * 
    * @return The position (measured in ticks) of playback
    */
   public long getTickPosition() {
     return sequencer.getTickPosition();
   }
-  
+
   /**
    * gets the length of a sequencer in MIDI ticks
    * 
    * @return long length of sequencer in MIDI ticks
    */
-  
+
   public long getTotalTickLength() {
     return sequencer.getTickLength();
   }
