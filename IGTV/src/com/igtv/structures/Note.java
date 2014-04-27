@@ -6,17 +6,24 @@ package com.igtv.structures;
  */
 public class Note implements Comparable<Note> {
 
+  //the string a note is found on a guitar (values {0-6})
   private int string;
 
+  //the fret of a string that corresponds to the note
   private int fret;
 
   /**
    * 
-   * @param onsetInTicks
-   * @param durationInTicks
-   * @param pitch
-   * @param channel
-   * @param track
+   * Constructor of a Note.
+   * Construction params based on an imported MIDI file.
+   * 
+   * @param onsetInTicks The starting position (in MIDI ticks) of a note
+   * @param durationInTicks The length (in MIDI ticks) of a note
+   * @param pitch The frequency of a note in MIDI format (60 = Middle C).
+   * @param channel The MIDI channel (values {1-16}) this note occupies
+   * @param track The track of the note in the MIDI file
+   * @param string The string of a guitar on which the note resides
+   * @param fret The fret of a guitar string corresponding to the note
    */
   Note(long onsetInTicks, long durationInTicks, int pitch, int channel, int track, int string,
       int fret) {
@@ -45,7 +52,7 @@ public class Note implements Comparable<Note> {
   private int pitch;
 
   /**
-   * Channel of the note from the imported MIDI file
+   * Channel of the note from the imported MIDI file, values {1-16}
    */
   private int channel;
 
@@ -53,7 +60,7 @@ public class Note implements Comparable<Note> {
    * Track of the note from the imported MIDI file
    */
   private int track;
-
+  
   public long getOnsetInTicks() {
     return onsetInTicks;
   }
@@ -118,6 +125,12 @@ public class Note implements Comparable<Note> {
 		this.fret = fret;
 	}
 
+	/**
+	 * Returns a string value, printing all parameters of a note in context.
+	 * Useful for debugging purposes. 
+	 * 
+	 * @return String value listing all of a note's param values.
+	 */
 	@Override
 	public String toString() {
 		return "Note [string=" + string + ", fret=" + fret + ", onsetInTicks="
@@ -126,6 +139,12 @@ public class Note implements Comparable<Note> {
 				+ track + "]";
 	}
 	
+	/**
+	 * Compares two notes based on their pitch value
+	 * 
+	 * @param note The note to compare to super.
+	 * @return 0 if equal; -1 if less than. +1 if greater than
+	 */
 	@Override
 	public int compareTo(Note note){
 		if (this.getPitch() < note.getPitch())
