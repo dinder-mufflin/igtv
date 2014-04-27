@@ -126,6 +126,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * 
    */
   private void drawTablatureLines() {
+    // Set up the ratio of the line markers for tablature for the guitar string markers
     int i, j, k;
     int tabRatioY = (int) (boxHeight / 6);
     int tabBorderX = (int) (boxWidth);
@@ -133,6 +134,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
     Line l1;
     Line l2;
+    // Add the strings to the tablature
     for (i = 0, j = centerY - tabRatioY / 2, k = centerY + tabRatioY / 2; i < 6 / 2; i++, j -=
         tabRatioY, k += tabRatioY) {
       l1 = new Line(tabBorderX, j, boxWidth - tabBorderX, j);
@@ -205,6 +207,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   private void drawNote(double xOffset, double yOffset, int fret, long duration) {
 
+    // Drawing notes will use rectangles as the main shape
     Rectangle r = new Rectangle(duration, boxHeight / 6, noteColor(fret));
 
     // Used to add beautification to the notes
