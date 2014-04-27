@@ -1,5 +1,6 @@
 package com.igtv.ui;
 
+import java.awt.Font;
 import java.net.URL;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -33,8 +34,8 @@ import javafx.scene.shape.Line;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
+import javafx.scene.text.*;
 
 public class TabViewerController extends AnchorPane implements Initializable {
 
@@ -189,7 +190,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
    */
   private Line drawMarker() {
     Line l = new Line(0, 0, 0, boxHeight);
-    l.setStroke(Color.CRIMSON);
+    l.setStroke(Color.RED);
     anchorPane.getChildren().add(l);
     return l;
   }
@@ -206,40 +207,25 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * @param duration
    */
   private void drawNote(double xOffset, double yOffset, int fret, long duration) {
-    Rectangle r = new Rectangle(duration, boxHeight / 6);
-    switch(fret % 12) {
-      case 1: r.setFill(Color.RED);
-              break;
-      case 2: r.setFill(Color.PINK);
-              break;
-      case 3: r.setFill(Color.ORANGE);
-              break;
-      case 4: r.setFill(Color.BROWN);
-              break;        
-      case 5: r.setFill(Color.YELLOW);
-              break;
-      case 6: r.setFill(Color.LIGHTGREEN);
-              break;
-      case 7: r.setFill(Color.GREEN);
-              break;
-      case 8: r.setFill(Color.LIGHTBLUE);
-              break;
-      case 9: r.setFill(Color.BLUE);
-              break;
-      case 10: r.setFill(Color.DARKBLUE);
-              break;
-      case 11: r.setFill(Color.VIOLET);
-              break;
-      case 12: r.setFill(Color.DARKVIOLET);
-              break;
-      default: r.setFill(Color.LIGHTBLUE); 
-              break;
-    }
+    Rectangle r = new Rectangle(duration, boxHeight / 6, noteColor(fret));
+    r.setArcWidth(25);
+    r.setArcHeight(25);
+    r.setStrokeWidth(1.0);
+    r.setStroke(Color.BLACK);
+
     r.relocate(xOffset, yOffset);
     
     final Label l = new Label("" + fret);
-    l.setFont(Font.font("Arial", 28));
+
     l.relocate(xOffset, yOffset);
+
+    
+    // for centering and displaying the fret number 
+    double labelXValue = xOffset + 10.0;
+    double labelYValue = yOffset+(boxHeight/12)-6;
+    
+    l.relocate(labelXValue, labelYValue);
+
 
     l.addEventHandler(MouseEvent.MOUSE_ENTERED, new EventHandler<MouseEvent>() {
       @Override
@@ -253,6 +239,39 @@ public class TabViewerController extends AnchorPane implements Initializable {
     labelCache.add(l);
 
     anchorPane.getChildren().addAll(r, l);
+  }
+  
+  private Color noteColor(int fret) {
+    Color fretColor;
+    switch(fret % 12) {
+      case 1: fretColor = Color.CORAL;
+              break;
+      case 2: fretColor = Color.SALMON;
+              break;
+      case 3: fretColor = Color.BISQUE;
+              break;
+      case 4: fretColor = Color.GOLD;
+              break;        
+      case 5: fretColor = Color.PALEGOLDENROD;
+              break;
+      case 6: fretColor = Color.LIGHTGREEN;
+              break;
+      case 7: fretColor = Color.LIGHTSEAGREEN;
+              break;
+      case 8: fretColor = Color.LIGHTBLUE;
+              break;
+      case 9: fretColor = Color.AQUAMARINE;
+              break;
+      case 10: fretColor = Color.VIOLET;
+              break;
+      case 11: fretColor = Color.BLUEVIOLET;
+              break;
+      case 12: fretColor = Color.MEDIUMPURPLE;
+              break;
+      default: fretColor = Color.LIGHTBLUE; 
+              break;
+    }
+    return fretColor;
   }
   
   public int xOffset(double onset) {

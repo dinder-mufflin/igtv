@@ -59,7 +59,7 @@ public class MidiPlayer {
    */
   public boolean play() {
     // Ensure that load() has already been called
-    if (isLoaded()) {
+    if (!isLoaded()) {
       // Load was not called before calling play
       return false;
     }
