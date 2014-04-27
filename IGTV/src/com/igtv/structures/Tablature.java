@@ -90,37 +90,6 @@ public class Tablature {
     int measure = ticksPerQuarterNote * 4;
     return measure;
   }
-  
-  public int getScale() {
-    int scale = score.getTimingResolution();
-    return scale;
-  }
-  
-  /**
-   * Gets the length of the score for the tablature in MIDI ticks
-   * 
-   * 
-   * @return long, value in ticks of MIDI length
-   */
-  public long getTabLength() {
-    long length = score.getScoreTickLength();
-    System.out.println("Tab length = " +length);
-    return length;
-  }
-  
-  /**
-   * Gets the ratio of the length of a MIDI score to the length of it's view
-   * 
-   * 
-   * @param boxWidth
-   * @param tickLength
-   * @return double ratio representing (length of view) / (MIDI length in ticks)
-   */
-  
-  public double getTabTickRatio(double boxWidth, long tickLength) {
-    double ratio =  (boxWidth / tickLength);
-    return ratio;
-  }
 
   public void print() {
 

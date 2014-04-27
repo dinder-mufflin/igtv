@@ -134,31 +134,4 @@ public class Score {
     int timeRes = seq.getResolution();
     return timeRes;
   }
-  
-  /**
-   * Gets the total length of a score in MIDI ticks
-   * 
-   * 
-   * @return long length of score in MIDI ticks
-   */
-  
-  public long getScoreTickLength() {
-    long length = seq.getTickLength();
-    System.out.println("Ticks = " + length);
-    return length;
-  }
-  
-  /**
-   * returns a new score length based on the ratio of the tablature view to the MIDI length
-   * 
-   * @param ratio
-   * @return double new length of tablature view to MIDI length
-   */
-  
-  public double newScoreLength(double ratio) {
-    long length = seq.getTickLength();
-    length = (long) (ratio * length);
-    System.out.println(length);
-    return length;
-  }
 }
