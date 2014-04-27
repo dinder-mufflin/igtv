@@ -7,18 +7,18 @@ import com.igtv.structures.Score;
 
 public class MidiReaderTest {
 
-  //Unit Test Naming Convention:  SetupSituation_ActionYouTake_ExpectedBeahavior()
-  
+  // Unit Test Naming Convention: SetupSituation_ActionYouTake_ExpectedBeahavior()
+
   @Test
   public void ValidMidiChosen_ReadScore_Imported() {
-    //Setup
+    // Setup
     String testPath = "assets/midi/Hotel California.mid";
-    
-    //Act
+
+    // Act
     Score result = MidiReader.readScore(testPath);
-    
-    //Assert
-    assert(result != null);
+
+    // Assert
+    assert (result != null);
   }
 
 }

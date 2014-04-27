@@ -43,12 +43,12 @@ public class PicCreator {
    * @param list List of notes for parsing
    * @param min Lower pitch?
    * @param max Higher pitch?
-   * @return 
+   * @return
    */
   public static ArrayList createTabNumbers(ArrayList<Note> list, int min, int max) {
-    //What is the purpose of this?
+    // What is the purpose of this?
     boolean hasBeenWriten = true;
-    
+
     sameNotes = new ArrayList<Note>(list.size());
     int counter, stringNo;
     mainListIndex = 0;
@@ -118,7 +118,7 @@ public class PicCreator {
       }
     }
     if (hasBeenWriten) {
-      //PicUtil.drawTab(sameNotes);
+      // PicUtil.drawTab(sameNotes);
       hasBeenWriten = false;
     }
     return sameNotes;

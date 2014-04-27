@@ -21,8 +21,8 @@ public class Note implements Comparable<Note> {
    * @param string The physical guitar string to be played (set to -1 initially)
    * @param fret The physical fret of the note that will be played (set to -1 initially)
    */
-  Note(long onsetInTicks, long durationInTicks, int pitch, int channel, int track, int string,
-      int fret) {
+  public Note(long onsetInTicks, long durationInTicks, int pitch, int channel, int track,
+      int string, int fret) {
     this.onsetInTicks = onsetInTicks;
     this.durationInTicks = durationInTicks;
     this.pitch = pitch;
