@@ -1,7 +1,6 @@
 package com.igtv.structures;
 
 import java.util.HashSet;
-import java.util.Iterator;
 
 /**
  * Representation as a frame (as outlined in the dictionary of terms) Contains a listing of all

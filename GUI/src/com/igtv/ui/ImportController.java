@@ -4,8 +4,6 @@ import java.io.File;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javax.sound.midi.Patch;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -151,7 +149,7 @@ public class ImportController extends AnchorPane implements Initializable {
       // Display "Preview" in the button
       btnPreview.setText("Preview");
     } else {
-      TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
+      TrackTableItem item = tblTracks.getSelectionModel().getSelectedItem();
 
       Score score = item.getScore();
 
@@ -174,7 +172,7 @@ public class ImportController extends AnchorPane implements Initializable {
       return;
     }
 
-    TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
+    TrackTableItem item = tblTracks.getSelectionModel().getSelectedItem();
 
     Score score = item.getScore();
     Tablature t = new Tablature(score);
