@@ -39,10 +39,16 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
   private Tablature tabs;
 
+  // Used for the main section where the tablature will be viewed
   private double boxHeight, boxWidth;
 
+  // Main variable
   private Main application;
 
+  /**
+   * Sets the Main application object
+   * @param application
+   */
   public void setApp(Main application) {
     this.application = application;
   }
@@ -56,11 +62,13 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * Draws the entire tablature onto {@link #anchorPane}
    */
   public void drawTablature() {
+    // Set the box width and height
     boxHeight = anchorPane.getHeight();
     boxWidth = anchorPane.getWidth();
 
     tabs = application.getTablature();
 
+    // Sets the main label from import file
     lblTitle.setText(tabs.getTitle());
 
     LinkedList<Frame> frames = tabs.getFrames();
@@ -75,6 +83,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
       drawFrame(curr);
     }
 
+    // Create measure lines so learner can better see what notes are closely related
     drawMeasureLines();
 
     lnMarker = drawMarker();
@@ -100,6 +109,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
     Integer[] notes = frame.guitarStringFrets;
 
+    // Create the notes and draw them onto the tablature
     for (int i = 0; i < notes.length; i++) {
       if (notes[i] == null) {
         continue;
@@ -116,6 +126,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * 
    */
   private void drawTablatureLines() {
+    // Set up the ratio of the line markers for tablature for the guitar string markers
     int i, j, k;
     int tabRatioY = (int) (boxHeight / 6);
     int tabBorderX = (int) (boxWidth);
@@ -123,6 +134,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
     Line l1;
     Line l2;
+    // Add the strings to the tablature
     for (i = 0, j = centerY - tabRatioY / 2, k = centerY + tabRatioY / 2; i < 6 / 2; i++, j -=
         tabRatioY, k += tabRatioY) {
       l1 = new Line(tabBorderX, j, boxWidth - tabBorderX, j);
@@ -188,15 +200,17 @@ public class TabViewerController extends AnchorPane implements Initializable {
   /**
    * Draws a note onto {@link #anchorPane}
    * 
-   * @param xOffset
-   * @param yOffset
-   * @param fret
-   * @param duration
+   * @param xOffset The positioning (in pixels) the note will be drawn
+   * @param yOffset The positioning (in pixels) the note will be drawn
+   * @param fret The guitar fret that the note is going to be played
+   * @param duration How long the note will be held for
    */
   private void drawNote(double xOffset, double yOffset, int fret, long duration) {
 
+    // Drawing notes will use rectangles as the main shape
     Rectangle r = new Rectangle(duration, boxHeight / 6, noteColor(fret));
 
+    // Used to add beautification to the notes
     r.setArcWidth(25);
     r.setArcHeight(25);
     r.setStrokeWidth(1.0);
@@ -204,6 +218,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
     r.relocate(xOffset, yOffset);
 
+    // The Label will display the fret value
     final Label l = new Label("" + fret);
 
     // for centering and displaying the fret number
@@ -226,6 +241,13 @@ public class TabViewerController extends AnchorPane implements Initializable {
     anchorPane.getChildren().addAll(r, l);
   }
 
+  /**
+   * Returns a color value of the note. This aids in visually cueing the player which notes are
+   * coming up.
+   * 
+   * @param fret
+   * @return
+   */
   private Color noteColor(int fret) {
     Color fretColor;
     switch (fret % 12) {
@@ -272,6 +294,12 @@ public class TabViewerController extends AnchorPane implements Initializable {
     return fretColor;
   }
 
+  /**
+   * Returns an int value where the note will be displayed on the x axis (in pixels)
+   * 
+   * @param onset
+   * @return
+   */
   public int xOffset(double onset) {
     // Left margin
     int shift = 0;
@@ -297,6 +325,12 @@ public class TabViewerController extends AnchorPane implements Initializable {
   public Timer scrollTimer;
   private long lastPosition = 0;
 
+  /**
+   * Changes the state of the playback engine. If the engine is playing then it will stop and update
+   * all variables. If it is not playing it will start the playback.
+   * 
+   * @param e
+   */
   public void onPlayClicked(ActionEvent e) {
     if (application.player.isPlaying()) {
       btnPlay.setText("Play");
@@ -322,6 +356,9 @@ public class TabViewerController extends AnchorPane implements Initializable {
     }
   }
 
+  /**
+   * Prints where the marker stopped
+   */
   public void stopTimer() {
     System.out.println(scrollTimer.hashCode());
     System.out.println(lnMarker.hashCode());

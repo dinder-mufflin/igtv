@@ -11,12 +11,15 @@ public class Note implements Comparable<Note> {
   private int fret;
 
   /**
+   * Main Constructor
    * 
-   * @param onsetInTicks
-   * @param durationInTicks
-   * @param pitch
-   * @param channel
-   * @param track
+   * @param onsetInTicks When the notes starts
+   * @param durationInTicks How long the note is held for
+   * @param pitch Pitch of the note
+   * @param channel MIDI channel it is played on
+   * @param track MIDI track it is played on
+   * @param string The physical guitar string to be played (set to -1 initially)
+   * @param fret The physical fret of the note that will be played (set to -1 initially)
    */
   public Note(long onsetInTicks, long durationInTicks, int pitch, int channel, int track,
       int string, int fret) {
@@ -53,6 +56,9 @@ public class Note implements Comparable<Note> {
    * Track of the note from the imported MIDI file
    */
   private int track;
+
+
+  // /// GETTERS AND SETTERS /////
 
   public long getOnsetInTicks() {
     return onsetInTicks;
@@ -125,6 +131,9 @@ public class Note implements Comparable<Note> {
         + ", track=" + track + "]";
   }
 
+  /**
+   * Used with Collections.sort() function to sort by pitch when notes are stacked
+   */
   @Override
   public int compareTo(Note note) {
     if (this.getPitch() < note.getPitch())
