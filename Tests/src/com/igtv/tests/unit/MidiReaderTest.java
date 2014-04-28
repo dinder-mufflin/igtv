@@ -7,7 +7,7 @@ import com.igtv.structures.Score;
 
 public class MidiReaderTest {
 
-  // Unit Test Naming Convention: SetupSituation_ActionYouTake_ExpectedBeahavior()
+  // Unit Test Naming Convention: SetupSituation_ActionYouTake_ExpectedBehavior()
 
   @Test
   public void ValidMidiChosen_ReadScore_Imported() {
