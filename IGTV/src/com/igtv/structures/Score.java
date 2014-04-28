@@ -53,6 +53,7 @@ public class Score {
 
   /**
    * Main constructor
+   * 
    * @param seq
    */
   public Score(Sequence seq) {
@@ -92,10 +93,17 @@ public class Score {
   /**
    * Returns content of the specified track
    * 
+   * @pre track > 0
+   * @post {@link Score} converted from a track
+   * 
    * @param Track The track number being returned
    * @return The score of the requested track
    */
   public Score getTrack(int track) {
+    
+    if(track < 0){
+      return null;
+    }
 
     Track t = seq.getTracks()[track];
 
@@ -130,7 +138,10 @@ public class Score {
   /**
    * Converts the double[][] note array into an ArrayList
    * 
-   * @return
+   * @pre notes1D.length >= 0
+   * @post notes1D converted to ArrayList
+   * 
+   * @return ArrayList of {@link Note} objects
    */
   public ArrayList<Note> getNotes() {
     ArrayList<Note> output = new ArrayList<Note>();
@@ -154,6 +165,9 @@ public class Score {
 
   /**
    * Gets the resolution of a sequence, ticks per second (PPQ) or frame (STMPE)
+   * 
+   * @pre seq != null
+   * @post timeRes = Sequence resolution
    * 
    * @return int ticks per second (PPQ) or frame (SMPTE)
    */
