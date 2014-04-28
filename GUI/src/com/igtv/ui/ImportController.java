@@ -2,9 +2,8 @@ package com.igtv.ui;
 
 import java.io.File;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import javax.sound.midi.Patch;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -25,6 +24,7 @@ import javafx.scene.layout.AnchorPane;
 
 import com.igtv.Main;
 import com.igtv.midi.io.MidiReader;
+import com.igtv.structures.Note;
 import com.igtv.structures.Score;
 import com.igtv.structures.Tablature;
 
@@ -97,12 +97,10 @@ public class ImportController extends AnchorPane implements Initializable {
       for (int i = 1; i < importedScore.numberOfTracks(); i++) {
 
         Score currentTrack = importedScore.getTrack(i);
-
-        // Add instrument values here
+        
         tracks.add(new TrackTableItem(i, "TEST", currentTrack));
-
       }
-
+      
       tblTracks.setItems(tracks);
     }
   }
@@ -151,7 +149,7 @@ public class ImportController extends AnchorPane implements Initializable {
       // Display "Preview" in the button
       btnPreview.setText("Preview");
     } else {
-      TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
+      TrackTableItem item = tblTracks.getSelectionModel().getSelectedItem();
 
       Score score = item.getScore();
 
@@ -174,7 +172,7 @@ public class ImportController extends AnchorPane implements Initializable {
       return;
     }
 
-    TrackTableItem item = (TrackTableItem) tblTracks.getSelectionModel().getSelectedItem();
+    TrackTableItem item = tblTracks.getSelectionModel().getSelectedItem();
 
     Score score = item.getScore();
     Tablature t = new Tablature(score);

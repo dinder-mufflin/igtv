@@ -6,8 +6,6 @@ import javax.sound.midi.InvalidMidiDataException;
 import javax.sound.midi.Sequence;
 import javax.sound.midi.Track;
 
-import com.igtv.pic.util.PicCreator;
-
 import edu.columbia.ee.csmit.MidiKaraoke.read.NotesInMidi;
 import edu.columbia.ee.csmit.MidiKaraoke.read.PianoRoll;
 import edu.columbia.ee.csmit.MidiKaraoke.read.PianoRollViewParser;
@@ -30,25 +28,49 @@ public class Score {
    */
   private double ticksPerQuarterNotes;
 
+  /**
+   * Arraylist of Note objects used for creating the tablature
+   */
   private ArrayList<Note> notesList;
 
+  /**
+   * Fixed array with NotesInMidi objects. The NotesInMidi object holds several more variables than
+   * the Note object, but much of this extra information is not needed in IGTV
+   * 
+   * Serves as temporary placeholder between the MIDI file and the notesList ArrayList
+   */
   private NotesInMidi[] notes1D;
-  
+
+  /**
+   * The tempo of the score in BPM
+   */
   private int tempo;
 
+  /**
+   * The sequence that the score will be based on
+   */
   private Sequence seq;
 
+  /**
+   * Main constructor
+   * @param seq
+   */
   public Score(Sequence seq) {
     this.seq = seq;
-    
+
     try {
+      // Parse the sequence into a easy to manipulate PianoRoll object
       PianoRoll roll = PianoRollViewParser.parse(seq);
+      
+      // Convert the PianoRoll object into 1D and 2D arrays
       NotesInMidi[] notes = roll.getNotes();
       double[][] noteArray = roll.getNotesDoubles();
+      
+      // Update variables to point to the parsed arrays
       this.notes = noteArray;
       this.notes1D = notes;
       this.notesList = getNotes();
-      //this.tempo = getRes();
+      // this.tempo = getRes();
       // PicCreator.generatePicture(this.notesList);
     } catch (Exception e) {
       System.out.println("Problem!");
@@ -79,7 +101,12 @@ public class Score {
 
     Sequence requested;
     try {
-      requested = new Sequence(seq.getDivisionType(), seq.getResolution());
+      // Get division and resolution for the Sequence object
+      float divType = seq.getDivisionType();
+      int reso = seq.getResolution();
+      requested = new Sequence(divType, reso);
+      
+      // Update track information
       Track newt = requested.createTrack();
       for (int i = 0; i < t.size(); i++) {
         newt.add(t.get(i));
@@ -124,7 +151,7 @@ public class Score {
     }
     return output;
   }
-  
+
   /**
    * Gets the resolution of a sequence, ticks per second (PPQ) or frame (STMPE)
    * 
