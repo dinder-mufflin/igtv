@@ -70,7 +70,7 @@ public class Score {
   public Score(Sequence seq) throws SequenceDivisionTypeException {
 
     // Check to see if the sequence is valid
-    if (!isNull(seq)) {
+    if (isNull(seq)) {
 
       // Sequence given is invalid. Throw an exception.
       throw new RuntimeException("The sequence given is invalid.");
