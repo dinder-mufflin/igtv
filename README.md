@@ -5,6 +5,6 @@ The Interactive Guitar Tablature Viewer is an application designed to assist wit
 Requirements
 ==
 To run the IGTV application, you will need:
-  * Java Runtime Environment 7 or later
+  * [Java Runtime Environment 7](http://www.oracle.com/technetwork/java/javase/downloads/java-se-jre-7-download-432155.html) or later
 For development, the following additional software is required:
-  * Eclipse IDE for Java Developers, with the e(fx)clipse plugin installed
+  * [Eclipse IDE for Java Developers](https://www.eclipse.org/downloads/packages/eclipse-ide-java-developers/keplersr2), with the [e(fx)clipse](http://www.eclipse.org/efxclipse/index.html) plugin installed
