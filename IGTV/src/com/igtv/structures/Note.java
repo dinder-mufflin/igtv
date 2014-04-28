@@ -6,8 +6,14 @@ package com.igtv.structures;
  */
 public class Note implements Comparable<Note> {
 
+  /**
+   * The physical string the note will be played on
+   */
   private int string;
 
+  /**
+   * The physical fret the note will be played on
+   */
   private int fret;
 
   /**
