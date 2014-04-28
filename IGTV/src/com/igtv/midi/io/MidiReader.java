@@ -14,6 +14,9 @@ public class MidiReader {
    * velocity, channel, start (ticks), duration (ticks), start (seconds), duration (seconds), and
    * track
    * 
+   * @pre midiFile.exists()
+   * @post {@link Score} pulled from the MIDI file
+   * 
    * @param midiFilePath Location of the MIDI file
    * @param sortNotes Whether notes should be returned as sorted.
    * @return Score object that holds the MIDI data
