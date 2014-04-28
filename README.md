@@ -13,4 +13,4 @@ For development, the following additional software is required:
 
 Contributing
 ==
-Please see [CONTRIBUTING.md](https://github.com/dinder-mufflin/igtv/blob/master/CONTRIBUTING.md) for information on contributing to the program.
+Please see our [contributing guidelines](https://github.com/dinder-mufflin/igtv/blob/master/CONTRIBUTING.md) for information on contributing to the program.
