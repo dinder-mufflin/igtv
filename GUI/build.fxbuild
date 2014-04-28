@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="ASCII"?>
 <anttasks:AntTask xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:anttasks="http://org.eclipse.fx.ide.jdt/1.0" buildDirectory="${project}/build">
-  <deploy>
-    <application name="IGTV"/>
-    <info/>
+  <deploy packagingFormat="none">
+    <application name="IGTV" toolkit="fx"/>
+    <info title="Interactive Guitar Tablature Viewer" vendor="Dinder Mufflin"/>
   </deploy>
   <signjar/>
+  <manifestEntries name="JavaFX-Feature-Proxy&#xA;    &lt;attribute name=&quot;JavaFX-Feature-Proxy&quot; value=&quot;None&quot;/>&#xA; &lt;/manifest>" value="None"/>
 </anttasks:AntTask>
