@@ -27,41 +27,59 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
 
+/**
+ * View for displaying tablature to the user.
+ * 
+ * @see Tablature
+ * @see AnchorPane
+ * @see Note
+ * @see Score
+ * @see Track
+ */
 public class TabViewerController extends AnchorPane implements Initializable {
 
+  /**
+   * The vertical marker that scrolls through the score
+   */
   @FXML
   public Line lnMarker;
+
+  /**
+   * The play/pause button for controlling playback
+   */
   @FXML
   private Button btnPlay;
+
+  /**
+   * The pane used for displaying tablature
+   */
   @FXML
   private Pane anchorPane;
+
+  /**
+   * The title heading on the screen
+   */
   @FXML
-  private Label lblTitle; 
-  @FXML
-  private Label lblEHi;
-  @FXML
-  private Label lblB;
-  @FXML
-  private Label lblG;
-  @FXML
-  private Label lblD;
-  @FXML
-  private Label lblA;
-  @FXML
-  private Label lblELo;
-  @FXML
-  private VBox vPane;
-  
+  private Label lblTitle;
+
+  /**
+   * Tablature displayed to the user
+   */
   private Tablature tabs;
 
-  // Used for the main section where the tablature will be viewed
+  /**
+   * Used for the main section where the tablature will be viewed
+   */
   private double boxHeight, boxWidth;
 
-  // Main variable
+  /**
+   * Reference to main application
+   */
   private Main application;
 
   /**
    * Sets the Main application object
+   * 
    * @param application
    */
   public void setApp(Main application) {
@@ -107,6 +125,7 @@ public class TabViewerController extends AnchorPane implements Initializable {
     anchorPane.addEventHandler(MouseEvent.MOUSE_CLICKED, new EventHandler<MouseEvent>() {
       @Override
       public void handle(MouseEvent e) {
+        // Scroll
         lnMarker.setTranslateX(e.getX());
         lastPosition = (long) e.getX();
         application.player.seek((long) e.getX());
@@ -118,18 +137,27 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * Draws one frame onto {@link #anchorPane}
    * 
    * @param frame
+   * 
+   * @see Frame
    */
   private void drawFrame(Frame frame) {
     int xOffset = xOffset(frame.getOnsetInTicks());
 
+    // Notes on the guitar frets
     Integer[] notes = frame.guitarStringFrets;
 
     // Create the notes and draw them onto the tablature
     for (int i = 0; i < notes.length; i++) {
+
+      // A null Integer means that there is no note played on that string
       if (notes[i] == null) {
+        // No note here. Continue.
         continue;
       } else {
+        // There is a note
         double yOffset = yOffset(6 - i);
+
+        // Draw and display the note
         drawNote(xOffset, yOffset, notes[i], frame.durations[i]);
       }
     }
@@ -138,7 +166,9 @@ public class TabViewerController extends AnchorPane implements Initializable {
   /**
    * Draws horizontal tab lines, populating from the middle onto {@link #anchorPane}
    * 
-   * 
+   * @see AnchorPane
+   * @see Line
+   * @see Rectangle
    */
   private void drawTablatureLines() {
     // Set up the ratio of the line markers for tablature for the guitar string markers
@@ -149,13 +179,20 @@ public class TabViewerController extends AnchorPane implements Initializable {
 
     Line l1;
     Line l2;
+
     // Add the strings to the tablature
     for (i = 0, j = centerY - tabRatioY / 2, k = centerY + tabRatioY / 2; i < 6 / 2; i++, j -=
         tabRatioY, k += tabRatioY) {
+
+      // Arrange lines
       l1 = new Line(tabBorderX, j, boxWidth - tabBorderX, j);
       l2 = new Line(tabBorderX, k, boxWidth - tabBorderX, k);
+
+      // Color lines
       l1.setStroke(Color.BLACK);
       l2.setStroke(Color.BLACK);
+
+      // Add to the UI
       anchorPane.getChildren().addAll(l1, l2);
     }
 
@@ -165,15 +202,28 @@ public class TabViewerController extends AnchorPane implements Initializable {
    * Draws vertical lines to represent measures in standard 4/4 time propagating from the middle of
    * {@link #anchorPane}
    * 
+   * @see AnchorPane
    */
   public void drawMeasureLines() {
+
+    // UI drawing setup
     Line l;
     Rectangle r;
+
+    // Get the measure
     int measureLine = tabs.getMeasure();
     int tempMeasureLine = 0;
+
+    // Iterate across width
     for (int i = 0; i < boxWidth; i++) {
+
+      // Measure line
       l = new Line(tempMeasureLine, 0, tempMeasureLine, boxHeight);
+
+      // Displayed on the UI
       anchorPane.getChildren().addAll(l);
+
+      // Incrememnt tempMeasureLine
       tempMeasureLine += measureLine;
     }
   }
@@ -181,19 +231,37 @@ public class TabViewerController extends AnchorPane implements Initializable {
   /**
    * Fills in alternating colors at each string onto {@link #anchorPane}
    * 
+   * @see AnchorPane
    */
   private void drawStringFiller() {
+
+    // Iterate through each string
     for (int i = 0; i <= 6; i++) {
+
+      // Get the y offset for the string
       double yOffset = yOffset((6 - i));
+
+      // Displayed to the user
       Rectangle r;
+
       int j = i % 2;
       if (j != 0) {
+
+        // i is even
         r = new Rectangle(boxWidth, boxHeight / 6, Color.LIGHTCYAN);
+
+        // Set position of rectangle
         r.relocate(0, yOffset);
       } else {
+
+        // i is odd
         r = new Rectangle(boxWidth, boxHeight / 6, Color.ALICEBLUE);
+
+        // Set position of rectangle
         r.relocate(0, yOffset);
       }
+
+      // Adds to the UI
       anchorPane.getChildren().add(r);
     }
   }

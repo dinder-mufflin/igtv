@@ -75,6 +75,8 @@ public class Tablature {
   /**
    * Parses a {@link Score}
    * 
+   * @pre score != null
+   * @post added frames to the tablature
    * @param score
    */
   private void parse() {
@@ -84,31 +86,25 @@ public class Tablature {
     // Frames for saving into
     LinkedList<Frame> frames = new LinkedList<Frame>();
 
-    // Creates an ArrayList of Tablature fret numberings
-    ArrayList something =
-        PicCreator.createTabNumbers(notes, PicCreator.START_PITCH, PicCreator.END_PITCH);
-
     // Convert to {@link Note} ArrayList
-    for (int j = 0; j < something.size(); j++) {
-      ArrayList<Note> secondList = (ArrayList<Note>) something.get(j);
+    notes = createTabNumbers(notes, PicCreator.START_PITCH, PicCreator.END_PITCH);
 
-      // Bypass all incorrectly formated MIDI data from the MIDI file
-      for (Note note : secondList) {
-        if (note.getStringNo() < 0) {
-          continue;
-        }
-
-        // Add a frame to the frames LinkedList
-        if (frames.isEmpty() || frames.getLast().getOnsetInTicks() != note.getOnsetInTicks()) {
-          frames.add(new Frame(note.getOnsetInTicks()));
-        }
-
-        // Add the note to the {@link Frame} 
-        Frame currFrame = frames.getLast();
-
-        currFrame.durations[note.getStringNo()] = note.getDurationInTicks();
-        currFrame.guitarStringFrets[note.getStringNo()] = note.getFret();
+    // Bypass all incorrectly formated MIDI data from the MIDI file
+    for (Note note : notes) {
+      if (note.getStringNo() < 0) {
+        continue;
       }
+
+      // Add a frame to the frames LinkedList
+      if (frames.isEmpty() || frames.getLast().getOnsetInTicks() != note.getOnsetInTicks()) {
+        frames.add(new Frame(note.getOnsetInTicks()));
+      }
+
+      // Add the note to the {@link Frame}
+      Frame currFrame = frames.getLast();
+
+      currFrame.durations[note.getStringNo()] = note.getDurationInTicks();
+      currFrame.guitarStringFrets[note.getStringNo()] = note.getFret();
     }
 
     // Update pointers to the modified frame
@@ -118,7 +114,10 @@ public class Tablature {
   /**
    * Gets measures in ticks per quarter note. Assuming 4/4 time
    * 
-   * @return measure
+   * @pre Score != null
+   * @post measure > 0
+   * 
+   * @return Measure value in ticks
    */
   public int getMeasure() {
     int ticksPerQuarterNote = score.getTimingResolution();
@@ -133,5 +132,84 @@ public class Tablature {
       // curr.print();
     }
   }
+
+
+  /**
+   * Takes an {@link ArrayList} of {@link Note} objects and processes it to return that list with
+   * all notes containing the correct string and fret markers
+   * 
+   * @pre min > 0 && max > 0 
+   * @post Updated arraylist with note and string numbers
+   * 
+   * @param list The list to be iterated over
+   * @param min The lowest note to start looking for
+   * @param max The highest note to start looking for
+   * @return The corrected list with all fret and string markers
+   * 
+   */
+  public static ArrayList<Note> createTabNumbers(ArrayList<Note> list, int min, int max) {
+
+    // Min and max cannot be negative numbers
+    if (min < 0 || max < 0) {
+      return null;
+    }
+
+    // Create the temporary ArrayList that will be returned
+    ArrayList<Note> notesList = new ArrayList<Note>(list.size());
+
+    // Counters for the fret and strings
+    int fret = 0;
+    int stringNo = 0;
+
+    /*
+     * Loop through the list of notes
+     */
+    for (int j = 0; j < list.size(); j++) {
+      // Relevant note for this iteration
+      Note curr = list.get(j);
+      int currPitch = curr.getPitch();
+
+      /*
+       * Iterate through from min to max
+       */
+      for (int i = min; i < max; i++) {
+
+        // If we have reached the pitch of the current note
+        if (i == currPitch) {
+
+          // Confirm the current string and fret number
+          curr.setString(stringNo);
+          curr.setFret(fret);
+
+          // Add the corrected note to the notesList
+          notesList.add(curr);
+
+          // Reset the counter and string number to 0 for the new note
+          fret = 0;
+          stringNo = 0;
+          break;
+        } else if (fret == 7 && stringNo != 5) {
+          // Increase string number and reset the fret counter
+          fret = 0;
+          stringNo++;
+
+          // Must account for the reset of fret number
+          if (stringNo != 4) {
+            // Every string other than the G string
+            i -= 3;
+          } else {
+            // Accounts for the G String
+            i -= 4;
+          }
+        } else {
+          // Increment fret
+          fret++;
+        }
+
+      }
+    }
+    return notesList;
+  }
+
 
 }
