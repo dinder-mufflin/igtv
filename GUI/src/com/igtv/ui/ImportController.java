@@ -297,6 +297,8 @@ public class ImportController extends AnchorPane implements Initializable {
       return;
     }
 
+    application.player.stop();
+    
     // Get the selected item
     TrackTableItem item = tblTracks.getSelectionModel().getSelectedItem();
 
