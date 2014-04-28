@@ -6,10 +6,8 @@ package com.igtv.structures;
  */
 public class Note implements Comparable<Note> {
 
-  //the string a note is found on a guitar (values {0-6})
   private int string;
 
-  //the fret of a string that corresponds to the note
   private int fret;
 
   /**
