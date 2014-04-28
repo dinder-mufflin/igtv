@@ -35,22 +35,57 @@ import com.igtv.structures.Tablature;
  */
 public class ImportController extends AnchorPane implements Initializable {
 
+  /**
+   * Import button
+   */
   @FXML
   private Button btnImport;
+
+  /**
+   * Audio preview button
+   */
   @FXML
   private Button btnPreview;
+
+  /**
+   * Track Submit button
+   */
   @FXML
   private Button btnTrackSubmit;
+
+  /**
+   * Import text field (used for shoing the path)
+   */
   @FXML
   private TextField txtImport;
+
+  /**
+   * Pane for displaying multiple views
+   */
   @FXML
   private TabPane tabPane;
+
+  /**
+   * Track tab in {@link #tabPane}
+   */
   @FXML
   private Tab tabTrack;
+
+  /**
+   * Table of tracks for selection
+   */
   @FXML
   private TableView<TrackTableItem> tblTracks;
+
+  /**
+   * Column for {@link #tblTracks}
+   */
   @FXML
   private TableColumn colNumber;
+
+  /**
+   * Instrument column for {@link #tblTracks}
+   */
   @FXML
   private TableColumn colInstrument;
 
@@ -88,23 +123,32 @@ public class ImportController extends AnchorPane implements Initializable {
    * @param event Data relevant to the click event
    */
   public void onImportClicked(ActionEvent event) {
+    
     // Prompts the user to pick a MIDI file
     File file = application.requestMidiFile();
 
+    //Check if the user selected a file
     if (file == null) {
+      
       // User hit cancel
     } else {
+      
       // User chose successfully
       txtImport.setText(file.getName());
       fileName = file.getName();
+      
+      //Disable the import button
       btnImport.setDisable(true);
 
+      //Enable the tab track
       tabTrack.setDisable(false);
 
+      //Create factories for displaying in the table
       colInstrument.setCellValueFactory(new PropertyValueFactory<TrackTableItem, String>(
           "instrument"));
       colNumber.setCellValueFactory(new PropertyValueFactory<TrackTableItem, Integer>("number"));
 
+      //Gets the chosen track (as a Score)
       Score importedScore = MidiReader.readScore(file.getPath());
 
       ObservableList<TrackTableItem> tracks = FXCollections.observableArrayList();
@@ -117,18 +161,19 @@ public class ImportController extends AnchorPane implements Initializable {
 
         Score currentTrack = importedScore.getTrack(i);
 
-        tracks.add(new TrackTableItem(i, "TEST", currentTrack));
+        tracks.add(new TrackTableItem(i, "", currentTrack));
       }
 
+      //Add to the UI
       tblTracks.setItems(tracks);
     }
   }
 
   /**
-   * 
    * TrackTableItem provides a place holder for all of the track table data. This includes the track
    * number, track instrument and the score that it references.
    * 
+   * @see TableView
    */
   public static class TrackTableItem {
     private final SimpleIntegerProperty number;
@@ -148,15 +193,26 @@ public class ImportController extends AnchorPane implements Initializable {
       this.score = score;
     }
 
-    // GETTERS AND SETTERS //
+    /**
+     * Returns the number of the track
+     * @return Track number
+     */
     public int getNumber() {
       return number.get();
     }
 
+    /**
+     * Returns the instrument of the track
+     * @return Track instrument
+     */
     public String getInstrument() {
       return instrument.get();
     }
 
+    /**
+     * Returns the score of the track
+     * @return
+     */
     public Score getScore() {
       return score;
     }
@@ -170,16 +226,20 @@ public class ImportController extends AnchorPane implements Initializable {
    * @pre User has a selected track
    * @post Correct options will be available depending on what track is selected
    * 
-   * @param e
+   * @param e Click event
    */
   public void onTrackSelected(Event e) {
+    
+    //Check if the user clicked the first track (play all)
     if (tblTracks.getSelectionModel().getSelectedItem().getNumber() == 0) {
-      // Make it so user can't create tablature
+      
+      // Disable selection of this item
       btnPreview.setOpacity(1);
       btnTrackSubmit.setOpacity(.5);
       btnPreview.setDisable(false);
       btnTrackSubmit.setDisable(true);
     } else {
+      
       // All features are available
       btnPreview.setOpacity(1);
       btnTrackSubmit.setOpacity(1);
