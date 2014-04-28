@@ -54,7 +54,7 @@ public class Score {
   /**
    * Main constructor
    * 
-   * @param seq
+   * @param seq Sequence to be parsed
    */
   public Score(Sequence seq) {
     this.seq = seq;
@@ -84,7 +84,7 @@ public class Score {
   /**
    * Total number of tracks in the MIDI file
    * 
-   * @return
+   * @return Number of tracks
    */
   public int numberOfTracks() {
     return seq.getTracks().length;
@@ -129,7 +129,7 @@ public class Score {
   /**
    * Returns the entire MIDI sequence
    * 
-   * @return
+   * @return The attached sequence of the score
    */
   public Sequence getSequence() {
     return seq;

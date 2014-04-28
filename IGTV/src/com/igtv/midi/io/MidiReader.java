@@ -7,6 +7,11 @@ import com.igtv.structures.Score;
 
 import java.io.File;
 
+/**
+ * Main import system for IGTV. The only method is readScore() that accepts a path to a MIDI file
+ * and converts it to a {@linkvScore} object.
+ * 
+ */
 public class MidiReader {
 
   /**

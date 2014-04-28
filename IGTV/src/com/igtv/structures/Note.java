@@ -64,7 +64,7 @@ public class Note implements Comparable<Note> {
   private int track;
 
 
-  // /// GETTERS AND SETTERS /////
+  ///// GETTERS AND SETTERS /////
 
   public long getOnsetInTicks() {
     return onsetInTicks;
